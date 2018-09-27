@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\DARIA\Documents\Docs\Study\3 семестр\Программирование\petrova_d_a\prj.labs\complex\complex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\DARIA\Documents\Docs\Study\3 семестр\Программирование\petrova_d_a\prj.labs\complex\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B133947C-4F5C-3BB5-A355-A647AC66CFBC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
