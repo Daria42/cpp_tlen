@@ -1,4 +1,0 @@
-D:/DARIA/Documents/Docs/Study/3 семестр/Программирование/petrova_d_a/build/CMakeFiles/ALL_BUILD.dir
-D:/DARIA/Documents/Docs/Study/3 семестр/Программирование/petrova_d_a/build/CMakeFiles/ZERO_CHECK.dir
-D:/DARIA/Documents/Docs/Study/3 семестр/Программирование/petrova_d_a/build/prj.labs/complex/CMakeFiles/complex.dir
-D:/DARIA/Documents/Docs/Study/3 семестр/Программирование/petrova_d_a/build/prj.labs/rational/CMakeFiles/rational.dir
