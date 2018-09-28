@@ -1,6 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <sstream>
+
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
 class Rational {
 public:
@@ -17,6 +18,8 @@ public:
 	Rational& operator*=(const int rhs) { return operator*=(Rational(rhs)); }
 	Rational& operator/=(const Rational& rhs);
 	Rational& operator/=(const int rhs) { return operator/=(Rational(rhs)); }
+
+	void normal();
 
 	std::ostream& writeTo(std::ostream& ostrm);
 	std::istream& readFrom(std::istream& istrm);
@@ -35,36 +38,30 @@ Rational operator/(const Rational& lhs, const Rational& rhs);
 inline std::ostream& operator<<(std::ostream& ostrm, Rational& rhs) { return rhs.writeTo(ostrm); }
 inline std::istream& operator>>(std::istream& istrm, Rational& rhs) { return rhs.readFrom(istrm); }
 
-int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
-
 int main() {
-
-#ifdef _DEBUG
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-#endif
-
 	using namespace std;
-	Rational a, b, c, d;
-	cin >> a >> b >> c >> d;
-	cout << (a - c * b) / d << endl;
+	Rational a(0), b(1, 2), c(3, 4), d(7, 4), e(0), f(2, 5), g(8), h(42);
+	a += b;
+	b -= c;
+	c /= d;
+	e *= f;
+	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
+	cin >> a >> b;
+	cout << a + b << " " << a - b << " " << a * b << " " << a / b << endl;
 	return 0;
 }
 
 Rational::Rational(const int numerator): Rational(numerator, 1) {}
 
-Rational::Rational(const int numerator, const int denominator) : num(numerator), den(denominator) {};
+Rational::Rational(const int numerator, const int denominator) : num(numerator), den(denominator) {
+	(*this).normal();
+};
 
 Rational& Rational::operator+=(const Rational& rhs) {
 	int temp = gcd(den, rhs.den);
 	num = num * (rhs.den / temp) + rhs.num * (den / temp);
 	den = den * rhs.den / temp;
-	int mult = gcd(num, den);
-	num /= mult; den /= mult;
-	if (den < 0) {
-		den *= -1;
-		num *= -1;
-	}
+	(*this).normal();
 	return *this;
 }
 
@@ -78,12 +75,7 @@ Rational& Rational::operator-=(const Rational& rhs) {
 	int temp = gcd(den, rhs.den);
 	num = num * (rhs.den / temp) - rhs.num * (den / temp);
 	den = den * rhs.den / temp;
-	int mult = gcd(num, den);
-	num /= mult; den /= mult;
-	if (den < 0) {
-		den *= -1;
-		num *= -1;
-	}
+	(*this).normal();
 	return *this;
 }
 
@@ -96,12 +88,7 @@ Rational operator-(const Rational& lhs, const Rational& rhs) {
 Rational& Rational::operator*=(const Rational& rhs) {
 	num = num * rhs.num;
 	den = den * rhs.den;
-	int mult = gcd(num, den);
-	num /= mult; den /= mult;
-	if (den < 0) {
-		den *= -1;
-		num *= -1;
-	}
+	(*this).normal();
 	return *this;
 }
 
@@ -114,12 +101,7 @@ Rational operator*(const Rational& lhs, const Rational& rhs) {
 Rational& Rational::operator/=(const Rational& rhs) {
 	num = num * rhs.den;
 	den = den * rhs.num;
-	int mult = gcd(num, den);
-	num /= mult; den /= mult;
-	if (den < 0) {
-		den *= -1;
-		num *= -1;
-	}
+	(*this).normal();
 	return *this;
 }
 
@@ -127,6 +109,16 @@ Rational operator/(const Rational& lhs, const Rational& rhs) {
 	Rational res = lhs;
 	res /= rhs;
 	return res;
+}
+
+void Rational::normal() {
+	if (den == 0) num = 0;
+	if (!(num * den)) den = 1;
+	if (den < 0) {
+		den *= -1;
+		num *= -1;
+	}
+	int mult = gcd(abs(den), num);
 }
 
 std::ostream& Rational::writeTo(std::ostream& ostrm) {
@@ -142,6 +134,7 @@ std::istream& Rational::readFrom(std::istream& istrm) {
 	if (Rational::seperator == seperator) {
 		num = numerator;
 		den = denumerator;
+		(*this).normal();
 	}
 	else if (istrm.good()) istrm.setstate(std::ios_base::failbit);
 	return istrm;

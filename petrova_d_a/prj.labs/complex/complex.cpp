@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <sstream>
 
@@ -27,8 +26,6 @@ public:
 	static const char leftBrace{ '{' };
 	static const char seperator{ ',' };
 	static const char rightBrace{ '}' };
-
-	//~Complex();
 };
 
 Complex operator+(const Complex& lhs, const Complex& rhs);
@@ -40,21 +37,15 @@ inline std::ostream& operator<<(std::ostream& ostrm, Complex& rhs) { return rhs.
 inline std::istream& operator>>(std::istream& istrm, Complex& rhs) { return rhs.readFrom(istrm); }
 
 int main() {
-
-#ifdef _DEBUG
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-#endif
-
 	using namespace std;
-	Complex z;
-	cin >> z;
-	z += Complex(1.0, 0.0);
-	cout << z << endl;
-	z -= Complex(1.5);
-	cout << z << endl;
-	z /= Complex(0.1, 0.2);
-	cout << z << endl << z * Complex(0.5, 0.5);
+	Complex a(0), b(1, 2), c(3, 4), d(7, 4), e(10), f(2, 5), g(8), h(42);
+	a += b;
+	b -= c;
+	c /= d;
+	e *= f;
+	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
+	cin >> a >> b;
+	cout << a + b << " " << a - b << " " << a * b << " " << a / b << endl;
 	return 0;
 }
 
