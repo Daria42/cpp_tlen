@@ -2,8 +2,6 @@
 #include <iostream>
 #include <sstream>
 
-//int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
-
 int gcd (int a, int b) {
 	int temp;
 	while (b) {
@@ -75,6 +73,17 @@ Rational operator/(const Rational& lhs, const Rational& rhs) {
 	return res;
 }
 
+Rational operator+(const Rational& lhs, const int& rhs) { return (lhs + Rational(rhs)); };
+Rational operator-(const Rational& lhs, const int& rhs) { return (lhs - Rational(rhs)); };
+Rational operator*(const Rational& lhs, const int& rhs) { return (lhs * Rational(rhs)); };
+Rational operator/(const Rational& lhs, const int& rhs) { return (lhs / Rational(rhs)); };
+
+Rational operator+(const int& lhs, const Rational& rhs) { return (Rational(lhs) + rhs); };
+Rational operator-(const int& lhs, const Rational& rhs) { return (Rational(lhs) - rhs); };
+Rational operator*(const int& lhs, const Rational& rhs) { return (Rational(lhs) * rhs); };
+Rational operator/(const int& lhs, const Rational& rhs) { return (Rational(lhs) / rhs); };
+
+
 void Rational::normal() {
 	if (den == 0) num = 0;
 	if (!(num * den)) den = 1;
@@ -86,7 +95,8 @@ void Rational::normal() {
 }
 
 std::ostream& Rational::writeTo(std::ostream& ostrm) {
-	ostrm << num << seperator << den;
+	if (num != 0) ostrm << num << seperator << den;
+	else ostrm << 0;
 	return ostrm;
 }
 

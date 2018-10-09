@@ -52,6 +52,16 @@ Complex operator/(const Complex& lhs, const Complex& rhs) {
 	return res;
 }
 
+Complex operator+(const Complex& lhs, const double &rhs) { return (lhs + Complex(rhs)); };
+Complex operator-(const Complex& lhs, const double &rhs) { return operator-(lhs, Complex(rhs)); };
+Complex operator*(const Complex& lhs, const double &rhs) { return operator*(lhs, Complex(rhs)); };
+Complex operator/(const Complex& lhs, const double &rhs) { return operator/(lhs, Complex(rhs)); };
+
+Complex operator+(const double &rhs, const Complex& lhs) { return operator+(lhs, Complex(rhs)); };
+Complex operator-(const double &rhs, const Complex& lhs) { return operator-(lhs, Complex(rhs)); };
+Complex operator*(const double &rhs, const Complex& lhs) { return operator*(lhs, Complex(rhs)); };
+Complex operator/(const double &rhs, const Complex& lhs) { return operator/(lhs, Complex(rhs)); };
+
 std::ostream& Complex::writeTo(std::ostream& ostrm) {
 	ostrm << leftBrace << re << seperator << im << rightBrace;
 	return ostrm;

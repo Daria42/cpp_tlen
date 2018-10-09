@@ -10,7 +10,14 @@ int main() {
 	c /= d;
 	e *= f;
 	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
-	cin >> a >> b;
-	cout << a + b << " " << a - b << " " << a * b << " " << a / b << endl;
+	int k = 0;
+	a += k;
+	b -= k;
+	c *= k;
+	d /= k;
+	cout << a + k << " " << b - k << " " << c * k << " " << d / k << endl;
+	cout << k + a << " " << k - b << " " << k * c << " " << k / d << endl;
+	//double k = 1.5;
+	//cout << k + a << " " << endl;
 	return 0;
 }

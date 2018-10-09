@@ -3,9 +3,14 @@
 
 #include <iosfwd>
 
-class Rational {
-public:
-	Rational() {}
+class DynamicArray {
+private:
+	ptrdiff_t size_{ 0 };
+	T* data_{ nullptr };
+	DynamicArray
+
+
+	DynamicArray() {}
 	explicit Rational(const int numerator);
 	Rational(const int numerator, const int denominator);
 	bool operator==(const Rational& rhs) const { return (num * rhs.den == rhs.den * num); }

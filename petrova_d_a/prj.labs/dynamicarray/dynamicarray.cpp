@@ -1,19 +1,6 @@
-#include "rational.h"
+#include "dynamicarray.h"
 #include <iostream>
 #include <sstream>
-
-//int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
-
-int gcd (int a, int b) {
-	int temp;
-	while (b) {
-		a %= b;
-		temp = a;
-		a = b;
-		b = temp;
-	}
-	return a;
-}
 
 Rational::Rational(const int numerator): Rational(numerator, 1) {}
 
