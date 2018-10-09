@@ -31,6 +31,8 @@
 *.out
 *.app
 
+build
+
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
