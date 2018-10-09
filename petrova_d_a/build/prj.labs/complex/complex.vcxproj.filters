@@ -4,11 +4,22 @@
     <ClCompile Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\complex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\complex_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\complex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{FC5DD24C-C1D7-3774-A9CF-2EDD58BC151C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{B51573EF-BE79-3838-ADDD-05268581FE7A}</UniqueIdentifier>
     </Filter>

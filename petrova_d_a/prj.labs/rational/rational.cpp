@@ -1,54 +1,15 @@
+#include "rational.h"
 #include <iostream>
 #include <sstream>
 
-int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+//int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
-class Rational {
-public:
-	Rational() {}
-	explicit Rational(const int numerator);
-	Rational(const int numerator, const int denominator);
-	bool operator==(const Rational& rhs) const { return (num * rhs.den == rhs.den * num); }
-	bool operator!=(const Rational& rhs) const { return !operator==(rhs); }
-	Rational& operator+=(const Rational& rhs);
-	Rational& operator+=(const int rhs) { return operator+=(Rational(rhs)); }
-	Rational& operator-=(const Rational& rhs);
-	Rational& operator-=(const int rhs) { return operator-=(Rational(rhs)); }
-	Rational& operator*=(const Rational& rhs);
-	Rational& operator*=(const int rhs) { return operator*=(Rational(rhs)); }
-	Rational& operator/=(const Rational& rhs);
-	Rational& operator/=(const int rhs) { return operator/=(Rational(rhs)); }
-
-	void normal();
-
-	std::ostream& writeTo(std::ostream& ostrm);
-	std::istream& readFrom(std::istream& istrm);
-
-	static const char seperator{ '/' };
-
-	int num{ 0 };
-	int den{ 1 };
-};
-
-Rational operator+(const Rational& lhs, const Rational& rhs);
-Rational operator-(const Rational& lhs, const Rational& rhs);
-Rational operator*(const Rational& lhs, const Rational& rhs);
-Rational operator/(const Rational& lhs, const Rational& rhs);
-
-inline std::ostream& operator<<(std::ostream& ostrm, Rational& rhs) { return rhs.writeTo(ostrm); }
-inline std::istream& operator>>(std::istream& istrm, Rational& rhs) { return rhs.readFrom(istrm); }
-
-int main() {
-	using namespace std;
-	Rational a(0), b(1, 2), c(3, 4), d(7, 4), e(0), f(2, 5), g(8), h(42);
-	a += b;
-	b -= c;
-	c /= d;
-	e *= f;
-	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
-	cin >> a >> b;
-	cout << a + b << " " << a - b << " " << a * b << " " << a / b << endl;
-	return 0;
+int gcd(int a, int b) {
+	int ans = 1;
+	for (int i = 2; i <= a / 2 && i <= b / 2; i++)
+		if (a % i == 0 && b % i == 0)
+			ans = i;
+	return ans;
 }
 
 Rational::Rational(const int numerator): Rational(numerator, 1) {}

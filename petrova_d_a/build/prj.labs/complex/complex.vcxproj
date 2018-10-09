@@ -305,7 +305,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\complex.h" />
     <ClCompile Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\complex.cpp" />
+    <ClCompile Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\complex\complex_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\build\ZERO_CHECK.vcxproj">

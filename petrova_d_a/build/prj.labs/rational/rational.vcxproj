@@ -306,6 +306,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\rational\rational.cpp" />
+    <ClInclude Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\rational\rational.h" />
+    <ClCompile Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\prj.labs\rational\rational_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\DARIA\Documents\Docs\Projects\cpp_tlen\petrova_d_a\build\ZERO_CHECK.vcxproj">
