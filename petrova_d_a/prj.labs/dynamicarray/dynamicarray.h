@@ -4,43 +4,19 @@
 #include <iosfwd>
 
 class DynamicArray {
+public:
+	DynamicArray() = default;
+	DynamicArray(const int size);
+	DynamicArray(const DynamicArray &arr);
+	~DynamicArray() { delete data_; };
+	ptrdiff_t size() const { return size_; }
+	int& operator[](const ptrdiff_t index) { return data_[index]; }
+	void resize(const int size);
+	DynamicArray& operator=(const DynamicArray arr);
 private:
 	ptrdiff_t size_{ 0 };
-	T* data_{ nullptr };
-	DynamicArray
-
-
-	DynamicArray() {}
-	explicit Rational(const int numerator);
-	Rational(const int numerator, const int denominator);
-	bool operator==(const Rational& rhs) const { return (num * rhs.den == rhs.den * num); }
-	bool operator!=(const Rational& rhs) const { return !operator==(rhs); }
-	Rational& operator+=(const Rational& rhs);
-	Rational& operator+=(const int rhs) { return operator+=(Rational(rhs)); }
-	Rational& operator-=(const Rational& rhs);
-	Rational& operator-=(const int rhs) { return operator-=(Rational(rhs)); }
-	Rational& operator*=(const Rational& rhs);
-	Rational& operator*=(const int rhs) { return operator*=(Rational(rhs)); }
-	Rational& operator/=(const Rational& rhs);
-	Rational& operator/=(const int rhs) { return operator/=(Rational(rhs)); }
-
-	void normal();
-
-	std::ostream& writeTo(std::ostream& ostrm);
-	std::istream& readFrom(std::istream& istrm);
-
-	static const char seperator{ '/' };
-
-	int num{ 0 };
-	int den{ 1 };
+	ptrdiff_t capacity_{ 0 };
+	int* data_{ nullptr };
 };
-
-Rational operator+(const Rational& lhs, const Rational& rhs);
-Rational operator-(const Rational& lhs, const Rational& rhs);
-Rational operator*(const Rational& lhs, const Rational& rhs);
-Rational operator/(const Rational& lhs, const Rational& rhs);
-
-inline std::ostream& operator<<(std::ostream& ostrm, Rational& rhs) { return rhs.writeTo(ostrm); }
-inline std::istream& operator>>(std::istream& istrm, Rational& rhs) { return rhs.readFrom(istrm); }
 
 #endif
