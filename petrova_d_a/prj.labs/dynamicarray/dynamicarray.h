@@ -7,13 +7,13 @@ template <typename T>
 class DynamicArray {
 public:
 	DynamicArray() = default;
-	DynamicArray(const int size);
+	DynamicArray(const ptrdiff_t size);
 	DynamicArray(const DynamicArray &arr);
 	~DynamicArray() { delete[] data_; };
 	ptrdiff_t size() const { return size_; }
 	T& operator[](const ptrdiff_t index);
 	//const int& operator[](const ptrdiff_t index) const;
-	void resize(const int size);
+	void resize(const ptrdiff_t size);
 	const DynamicArray &operator=(const DynamicArray<T> &arr);
 private:
 	ptrdiff_t size_{ 0 };

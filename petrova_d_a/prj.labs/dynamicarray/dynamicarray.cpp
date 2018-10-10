@@ -1,7 +1,7 @@
 #include "dynamicarray.h"
 
 template <typename T>
-DynamicArray<T>::DynamicArray(const int size): size_(size) {
+DynamicArray<T>::DynamicArray(const ptrdiff_t size): size_(size) {
 	if (size < 0) throw "size < 0 !";
 	capacity_ = size * 3/2;
 	if (capacity_ > 0) data_ = new int[capacity_];
@@ -36,7 +36,7 @@ T& DynamicArray<T>::operator[](const ptrdiff_t index) {
 //}
 
 template <typename T>
-void DynamicArray<T>::resize(const int size) {
+void DynamicArray<T>::resize(const ptrdiff_t size) {
 	if (size < 0) throw "size < 0 !";
 	if (size <= capacity_) size_ = size;
 	else {
