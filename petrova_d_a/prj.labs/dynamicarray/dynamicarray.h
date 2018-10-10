@@ -3,20 +3,22 @@
 
 #include <iosfwd>
 
+template <typename T>
 class DynamicArray {
 public:
 	DynamicArray() = default;
 	DynamicArray(const int size);
 	DynamicArray(const DynamicArray &arr);
-	~DynamicArray() { delete data_; };
+	~DynamicArray() { delete[] data_; };
 	ptrdiff_t size() const { return size_; }
-	int& operator[](const ptrdiff_t index) { return data_[index]; }
+	T& operator[](const ptrdiff_t index);
+	//const int& operator[](const ptrdiff_t index) const;
 	void resize(const int size);
-	DynamicArray& operator=(const DynamicArray arr);
+	const DynamicArray &operator=(const DynamicArray<T> &arr);
 private:
 	ptrdiff_t size_{ 0 };
 	ptrdiff_t capacity_{ 0 };
-	int* data_{ nullptr };
+	T* data_{ nullptr };
 };
 
 #endif
