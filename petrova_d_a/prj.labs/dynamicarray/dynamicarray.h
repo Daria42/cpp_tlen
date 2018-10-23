@@ -1,5 +1,5 @@
-#ifndef rational_h
-#define rational_h
+#ifndef dynamicarray_h
+#define dynamicarray_h
 
 #include <iosfwd>
 
