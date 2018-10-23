@@ -1,12 +1,40 @@
 #include "stackonlist.h"
 
-template <typename T>
-StackOnList<T>::StackOnList(const StackOnList &arr) {
-	capacity_ = arr.capacity_;
-	data_ = new T[capacity_];
-	for (int i = 0; i < arr.size(); i++)
-		data_[i] = arr.data_[i];
+StackOnList::StackOnList(const StackOnList &arr) {
+	head_ = nullptr;
+	if (arr.empty()) return;
+	head_ = new Node(nullptr, arr.head_->data_);
+	Node *data = arr.head_;
+	Node *current = head_;
+	while (data->next_ != nullptr) {
+		data = data->next_;
+		current->next_ = new Node(data->next_, data->data_);
+		if (current->next_ != nullptr) current = current->next_;
+	}
 }
 
-template <typename T>
-void StackOnList<T>::push(const )
+StackOnList::~StackOnList() {
+	while (empty()) pop();
+}
+
+void StackOnList::push(const int val) {
+	head_ = new Node(head_, val);
+}
+
+int& StackOnList::top() {
+	if (empty()) throw "empty!";
+	return head_->data_;
+}
+
+void StackOnList::pop() {
+	if (empty()) throw "empty!";
+	Node *old = head_;
+	head_ = head_->next_;
+	delete old;
+}
+
+StackOnList& StackOnList::operator=(const StackOnList &arr) {
+	StackOnList temp (arr);
+	head_ = temp.head_;
+	return (*this);
+}

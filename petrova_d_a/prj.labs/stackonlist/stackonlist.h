@@ -3,25 +3,23 @@
 
 #include <iosfwd>
 
-template <typename T>
-struct Node {
-	Node<T>* next{ nullptr };
-	T data;
-};
-
-template <typename T>
 class StackOnList {
 public:
-	StackOnList();
+	StackOnList() = default;
 	StackOnList(const StackOnList &arr);
-	~StackOnList() = default;
-	void push(const T val);
+	~StackOnList();
+	void push(const int val);
 	void pop();
-	T& top();
-	bool empty() { return data_.size() > 0; };
-	//const StackOnList &operator=(const StackOnList<T> &arr);
+	int& top();
+	bool empty() const { return head_ == nullptr; };
+	StackOnList& operator=(const StackOnList &arr);
 private:
-	Node<T>* head_{ nullptr };
+	struct Node {
+		Node* next_{ nullptr };
+		int data_{ 0 };
+		Node(Node* next, const int &data) : next_(next), data_(data) { }
+	};
+	Node* head_{ nullptr };
 };
 
 #endif

@@ -1,36 +1,31 @@
-#include "dynamicarray.h"
-#include "dynamicarray.cpp"
+#include "stackonlist.h"
+//#include "stackonlist.cpp"
 #include <iostream>
 #include <sstream>
 
 int main() {
 	using namespace std;
-	DynamicArray<int> a;
-	DynamicArray<int> b(5);
-	b[0] = 1; b[2] = 2; b[3] = 3; b[1] = 0; b[4] = 4;
-	DynamicArray<int> c(b);
-	cout << "a: ";
-	for (int i = 0; i < a.size(); i++) cout << a[i] << " ";
-	cout << endl;
-	cout << "b: ";
-	for (int i = 0; i < b.size(); i++) cout << b[i] << " ";
-	cout << endl;
-	cout << "c: ";
-	for (int i = 0; i < c.size(); i++) cout << c[i] << " ";
-	b.resize(2);
-	b[0] = 10;
-	b.resize(10);
-	b[6] = 1; b[7] = 2; b[8] = 3; b[9] = 4;
-	cout << endl;
-	cout << "b: ";
-	for (int i = 0; i < b.size(); i++) cout << b[i] << " ";
-	cout << endl;
+	StackOnList a;
+	cout << a.empty() << " ";
+	a.push(1);
+	cout << a.empty() << " ";
+	a.pop();
+	cout << a.empty() << endl;
+	a.push(2);
+	a.push(3);
+	a.pop();
+	a.push(4);
+	cout << a.top() << " ";
+	a.push(5);
+	cout << a.top() << " ";
+	a.pop();
+	a.pop();
+	cout << a.top() << endl;
+	a.push(1);
+	StackOnList b(a);
+	b.pop();
+	cout << a.top() << " " << b.top() << endl;
 	a = b;
-	cout << "b: ";
-	for (int i = 0; i < b.size(); i++) cout << b[i] << " ";
-	cout << endl;
-	cout << "a: ";
-	for (int i = 0; i < a.size(); i++) cout << a[i] << " ";
-	cout << endl;
+	cout << a.top() << " " << b.top() << endl;
 	return 0;
 }
