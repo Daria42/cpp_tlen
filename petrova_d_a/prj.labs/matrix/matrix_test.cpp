@@ -33,5 +33,17 @@ int main() {
 	for (int i = 0; i < C.rows(); i++, cout << endl)
 		for (int j = 0; j < C.columns(); j++)
 			cout << C.get(i, j) << " ";
+	try {
+		Matrix d(-1, 12);
+	}
+	catch (invalid_argument ex) {
+		cout << "Tested size < 0" << endl;
+	}
+	try {
+		A.get(10, 100);
+	}
+	catch (out_of_range ex) {
+		cout << "Tested out of range" << endl;
+	}
 	return 0;
 }

@@ -11,6 +11,7 @@ int main() {
 	e *= f;
 	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
 	int k = 0;
+	a = b;
 	a += k;
 	b -= k;
 	c *= k;

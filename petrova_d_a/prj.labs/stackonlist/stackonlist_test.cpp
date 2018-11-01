@@ -27,5 +27,12 @@ int main() {
 	cout << a.top() << " " << b.top() << endl;
 	a = b;
 	cout << a.top() << " " << b.top() << endl;
+	a.pop();
+	try {
+		a.pop();
+	}
+	catch (runtime_error ex) {
+		cout << "Can't pop!" << endl;
+	}
 	return 0;
 }

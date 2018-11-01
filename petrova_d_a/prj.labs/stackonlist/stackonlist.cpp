@@ -1,4 +1,7 @@
+#include <iostream>
 #include "stackonlist.h"
+
+using namespace std;
 
 StackOnList::StackOnList(const StackOnList &arr) {
 	head_ = nullptr;
@@ -14,7 +17,7 @@ StackOnList::StackOnList(const StackOnList &arr) {
 }
 
 StackOnList::~StackOnList() {
-	while (empty()) pop();
+	while (!empty()) pop();
 }
 
 void StackOnList::push(const int val) {
@@ -22,19 +25,22 @@ void StackOnList::push(const int val) {
 }
 
 int& StackOnList::top() {
-	if (empty()) throw "empty!";
+	if (empty()) throw runtime_error("empty!");
 	return head_->data_;
 }
 
 void StackOnList::pop() {
-	if (empty()) throw "empty!";
+	if (empty()) throw runtime_error("empty!");
 	Node *old = head_;
 	head_ = head_->next_;
 	delete old;
 }
 
 StackOnList& StackOnList::operator=(const StackOnList &arr) {
-	StackOnList temp (arr);
-	head_ = temp.head_;
+	if (&arr == this) return *this;
+	StackOnList temp(arr);
+	Node* tmp = temp.head_;
+	temp.head_ = head_;
+	head_ = tmp;
 	return (*this);
 }

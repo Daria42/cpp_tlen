@@ -3,8 +3,10 @@
 #include <algorithm>
 #include <sstream>
 
+using namespace std;
+
 Matrix::Matrix(const ptrdiff_t row, const ptrdiff_t col) {
-	if (row <= 0 || col <= 0) throw "Not Matrix!";
+	if (row <= 0 || col <= 0) throw invalid_argument("Not Matrix!");
 	row_ = row;
 	col_ = col;
 	rowcap_ = row * 3 / 2;
@@ -55,15 +57,19 @@ void Matrix::resize(const ptrdiff_t row, const ptrdiff_t col) {
 }
 
 Matrix& Matrix::operator=(const Matrix& mat) {
+	if (&mat == this) return *this;
+	Matrix temp = Matrix(mat);
+	swap(temp.colcap_, colcap_);
+	swap(temp.col_, col_);
+	swap(temp.rowcap_, rowcap_);
+	swap(temp.row_, row_);
+	swap(temp.data_, data_);
 	resize(mat.row_, mat.col_);
-	for (int i = 0; i < row_; i++)
-		for (int j = 0; j < col_; j++)
-			data_[i][j] = mat.data_[i][j];
 	return (*this);
 }
 
 int& Matrix::get(const ptrdiff_t i, const ptrdiff_t j) {
 	if (i >= row_ || i < 0 || j >= col_ || j < 0)
-		throw "Out of range!";
+		throw out_of_range("Out of range!");
 	return data_[i][j];
 }

@@ -9,10 +9,10 @@ public:
 	DynamicArray() = default;
 	DynamicArray(const ptrdiff_t size);
 	DynamicArray(const DynamicArray &arr);
-	~DynamicArray() { delete[] data_; };
+	~DynamicArray() { delete[] data_; data_ = nullptr; };
 	ptrdiff_t size() const { return size_; }
 	T& operator[](const ptrdiff_t index);
-	//const int& operator[](const ptrdiff_t index) const;
+	const T& operator[](const ptrdiff_t index) const;
 	void resize(const ptrdiff_t size);
 	const DynamicArray &operator=(const DynamicArray<T> &arr);
 private:

@@ -32,5 +32,17 @@ int main() {
 	cout << "a: ";
 	for (int i = 0; i < a.size(); i++) cout << a[i] << " ";
 	cout << endl;
+	try {
+		DynamicArray<int> d(-1);
+	}
+	catch(invalid_argument ex){
+		cout << "Tested size < 0" << endl;
+	}
+	try {
+		a[1000];
+	}
+	catch (out_of_range ex) {
+		cout << "Tested out of range" << endl;
+	}
 	return 0;
 }
