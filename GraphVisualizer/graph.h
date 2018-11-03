@@ -29,8 +29,8 @@ private:
 
 	struct Vertex {
 		Vertex() = default;
-		void connect(ptrdiff_t v, ptrdiff_t e) { links.push_back({ v, e }); }
-		int number;
+		~Vertex() { delete ellipse; }
+		ptrdiff_t number;
 		std::vector < std::pair <ptrdiff_t, ptrdiff_t> > links;
 		double x, y;
 		QColor color;
@@ -39,7 +39,8 @@ private:
 
 	struct Edge {
 		Edge() = default;
-		int number; 
+		~Edge() { delete line; }
+		ptrdiff_t number;
 		ptrdiff_t from, to;
 		QColor color;
 		QGraphicsItem *line;
@@ -47,7 +48,6 @@ private:
 
 	std::vector<Vertex> vertices;
 	std::vector<Edge> edges;
-
 };
 
 #endif

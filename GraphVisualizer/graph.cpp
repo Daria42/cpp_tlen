@@ -58,15 +58,43 @@ void Graph::deleteEdge(ptrdiff_t e) {
 }
 
 void Graph::deleteVertex(ptrdiff_t v) {
+	vertices[v].number = -1;
 	std::vector <ptrdiff_t> edgesForDeleting;
 	for (int i = 0; i < vertices[v].links.size(); i++)
-		if (vertices[vertices[v].links[i].first].number != -1)
+		if (isVertexValid(vertices[v].links[i].first))
 			edgesForDeleting.push_back(vertices[v].links[i].second);
 	for (int i = 0; i < edgesForDeleting.size(); i++)
 		deleteEdge(edgesForDeleting[i]);
-	vertices[v].number = -1;
 }
 
 void Graph::renumber() {
-
+	std::vector<ptrdiff_t> transVertices(vertices.size());
+	std::vector<ptrdiff_t> transEdges(edges.size());
+	ptrdiff_t countVertices = 0, countEdges = 0;
+	std::vector<Vertex> newVertices;
+	std::vector<Edge> newEdges;
+	for (int i = 0; i < vertices.size(); i++)
+		if (isVertexValid(i)) {
+			newVertices.push_back(vertices[i]);
+			transVertices[i] = countVertices;
+			countVertices++;
+		}
+	for (int i = 0; i < edges.size(); i++)
+		if (isEdgeValid(i)) {
+			transEdges[i] = countEdges;
+			newEdges.push_back(edges[i]);
+			countEdges++;
+		}
+	for (int i = 0; i < newVertices.size(); i++) {
+		std::vector < std::pair <ptrdiff_t, ptrdiff_t> > newLinks;
+		for (int j = 0; j < newVertices[i].links.size(); j++) {
+			ptrdiff_t v = newVertices[i].links[j].first;
+			ptrdiff_t e = newVertices[i].links[j].second;
+			if (isVertexValid(v) && isEdgeValid(e))
+				newLinks.push_back({ transVertices[v], transEdges[e] });
+		}
+		swap(newVertices[i].links, newLinks);
+	}
+	swap(newVertices, vertices);
+	swap(newEdges, edges);
 }
