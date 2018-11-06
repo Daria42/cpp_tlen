@@ -1,10 +1,10 @@
-#include "stackonlist.h"
+#include "stackonarray.h"
 #include <iostream>
 #include <sstream>
 
 int main() {
 	using namespace std;
-	StackOnList a;
+	StackOnArray a;
 	cout << a.empty() << " ";
 	a.push(1);
 	cout << a.empty() << " ";
@@ -21,7 +21,7 @@ int main() {
 	a.pop();
 	cout << a.top() << endl;
 	a.push(1);
-	StackOnList b(a);
+	StackOnArray b(a);
 	b.pop();
 	cout << a.top() << " " << b.top() << endl;
 	a = b;

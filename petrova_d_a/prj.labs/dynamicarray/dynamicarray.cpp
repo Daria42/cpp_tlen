@@ -5,7 +5,7 @@ using namespace std;
 template <typename T>
 DynamicArray<T>::DynamicArray(const ptrdiff_t size): size_(size) {
 	if (size < 0) throw invalid_argument("size < 0 !");
-	capacity_ = size * 3/2;
+	capacity_ = size * 2;
 	if (capacity_ > 0) data_ = new T[capacity_];
 }
 
@@ -45,11 +45,12 @@ void DynamicArray<T>::resize(const ptrdiff_t size) {
 	if (size < 0) throw invalid_argument("Size < 0!");
 	if (size <= capacity_) size_ = size;
 	else {
-		capacity_ = size * 3 / 2;
-		int *data = new T[capacity_];
+		if (capacity_ == 0) capacity_ = 1;
+		else capacity_ = size * 2;
+		T *data = new T[capacity_];
 		for (int i = 0; i < size_; i++)
 			data[i] = data_[i];
-		size_ = size;
 		data_ = data;
+		size_ = size;
 	}
 }

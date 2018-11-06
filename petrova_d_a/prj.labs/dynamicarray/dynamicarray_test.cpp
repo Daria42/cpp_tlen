@@ -20,6 +20,7 @@ int main() {
 	b.resize(2);
 	b[0] = 10;
 	b.resize(10);
+	b[2] = 0; b[3] = 9; b[4] = 0; b[5] = 0;
 	b[6] = 1; b[7] = 2; b[8] = 3; b[9] = 4;
 	cout << endl;
 	cout << "b: ";

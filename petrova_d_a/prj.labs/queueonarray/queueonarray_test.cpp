@@ -1,4 +1,4 @@
-#include "stackonlist.h"
+#include "queueonarray.h"
 #include <iostream>
 #include <sstream>
 
