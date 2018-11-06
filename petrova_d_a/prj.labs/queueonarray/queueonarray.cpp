@@ -3,44 +3,47 @@
 
 using namespace std;
 
-StackOnList::StackOnList(const StackOnList &arr) {
-	head_ = nullptr;
-	if (arr.empty()) return;
-	head_ = new Node(nullptr, arr.head_->data_);
-	Node *data = arr.head_;
-	Node *current = head_;
-	while (data->next_ != nullptr) {
-		data = data->next_;
-		current->next_ = new Node(data->next_, data->data_);
-		if (current->next_ != nullptr) current = current->next_;
+QueueOnArray::QueueOnArray(const QueueOnArray &arr) {
+	last_ = arr.last_;
+	first_ = arr.first_;
+	capacity_ = arr.capacity_;
+	data_ = new int[capacity_];
+	for (int i = first_; i <= last_; i++)
+		data_[i % capacity_] = arr.data_[i % capacity_];
+}
+
+void QueueOnArray::push(const int val) {
+	if (capacity_ == 0 || last_ % capacity_ == first_ % capacity_) {
+		ptrdiff_t capacity = capacity_ * 2;
+		if (capacity == 0) capacity++;
+		int* data = new int[capacity];
+		for (int i = first_; i <= last_; i++)
+			data[i - first_] = data_[i % capacity];
+		swap(data, data_);
+		capacity_ = capacity;
+		last_ -= first_;
+		first_ = 0;
 	}
+	last_++;
+	data_[last_ % capacity_] = val;
 }
 
-StackOnList::~StackOnList() {
-	while (!empty()) pop();
-}
-
-void StackOnList::push(const int val) {
-	head_ = new Node(head_, val);
-}
-
-int& StackOnList::top() {
+int& QueueOnArray::top() {
 	if (empty()) throw runtime_error("empty!");
-	return head_->data_;
+	return data_[first_ % capacity_];
 }
 
-void StackOnList::pop() {
+void QueueOnArray::pop() {
 	if (empty()) throw runtime_error("empty!");
-	Node *old = head_;
-	head_ = head_->next_;
-	delete old;
+	first_++;
 }
 
-StackOnList& StackOnList::operator=(const StackOnList &arr) {
+QueueOnArray& QueueOnArray::operator=(const QueueOnArray &arr) {
 	if (&arr == this) return *this;
-	StackOnList temp(arr);
-	Node* tmp = temp.head_;
-	temp.head_ = head_;
-	head_ = tmp;
+	QueueOnArray temp(arr);
+	swap(temp.capacity_, capacity_);
+	swap(temp.data_, data_);
+	swap(temp.first_, first_);
+	swap(temp.last_, last_);
 	return (*this);
 }

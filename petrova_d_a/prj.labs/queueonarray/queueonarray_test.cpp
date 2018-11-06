@@ -4,7 +4,7 @@
 
 int main() {
 	using namespace std;
-	StackOnList a;
+	QueueOnArray a;
 	cout << a.empty() << " ";
 	a.push(1);
 	cout << a.empty() << " ";
@@ -12,20 +12,20 @@ int main() {
 	cout << a.empty() << endl;
 	a.push(2);
 	a.push(3);
-	a.pop();
 	a.push(4);
 	cout << a.top() << " ";
 	a.push(5);
 	cout << a.top() << " ";
 	a.pop();
-	a.pop();
 	cout << a.top() << endl;
+	a.pop();
 	a.push(1);
-	StackOnList b(a);
+	QueueOnArray b(a);
 	b.pop();
-	cout << a.top() << " " << b.top() << endl;
+	cout << a.top() << " " << b.top() << endl; //4, 5
 	a = b;
 	cout << a.top() << " " << b.top() << endl;
+	a.pop();
 	a.pop();
 	try {
 		a.pop();
