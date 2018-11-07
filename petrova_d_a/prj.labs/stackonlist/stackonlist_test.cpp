@@ -14,6 +14,7 @@ int main() {
 	cout << "Добавление элемента { 1 } в a" << endl;
 	cout << "a.empty() возвращает: " << a.empty() << endl;
 	cout << "a.top() возвращает: " << a.top() << endl;
+	a.pop();
 	cout << "Удаление элемента из a (a.pop())" << endl;
 	try { a.pop(); }
 	catch (runtime_error ex) { cout << "При попытке удалить элемент из пустого стэка выбрасывается исключение" << endl; }

@@ -1,8 +1,6 @@
 #include <iostream>
 #include "queueonarray.h"
 
-using namespace std;
-
 QueueOnArray::QueueOnArray(const QueueOnArray &arr) {
 	last_ = arr.last_;
 	first_ = arr.first_;
@@ -13,14 +11,14 @@ QueueOnArray::QueueOnArray(const QueueOnArray &arr) {
 }
 
 void QueueOnArray::push(const int val) {
-	if (capacity_ == 0 || last_ % capacity_ == first_ % capacity_) {
+	if (last_ - first_ + 1 >= capacity_) {
 		ptrdiff_t capacity = capacity_ * 2;
 		if (capacity == 0) capacity++;
-		int* data = new int[capacity];
+		int *data = new int[capacity];
 		for (int i = first_; i <= last_; i++)
-			data[i - first_] = data_[i % capacity];
-		swap(data, data_);
-		capacity_ = capacity;
+			data[i - first_] = data_[i % capacity_];
+		std::swap(data, data_);
+		std::swap(capacity, capacity_);
 		last_ -= first_;
 		first_ = 0;
 	}
@@ -29,21 +27,21 @@ void QueueOnArray::push(const int val) {
 }
 
 int& QueueOnArray::top() {
-	if (empty()) throw runtime_error("empty!");
+	if (empty()) throw std::runtime_error("empty!");
 	return data_[first_ % capacity_];
 }
 
 void QueueOnArray::pop() {
-	if (empty()) throw runtime_error("empty!");
+	if (empty()) throw std::runtime_error("empty!");
 	first_++;
 }
 
 QueueOnArray& QueueOnArray::operator=(const QueueOnArray &arr) {
 	if (&arr == this) return *this;
 	QueueOnArray temp(arr);
-	swap(temp.capacity_, capacity_);
-	swap(temp.data_, data_);
-	swap(temp.first_, first_);
-	swap(temp.last_, last_);
+	std::swap(temp.capacity_, capacity_);
+	std::swap(temp.data_, data_);
+	std::swap(temp.first_, first_);
+	std::swap(temp.last_, last_);
 	return (*this);
 }
