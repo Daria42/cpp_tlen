@@ -1,46 +1,54 @@
 #include <iostream>
 #include "queueonlist.h"
 
-using namespace std;
-
-StackOnList::StackOnList(const StackOnList &arr) {
-	head_ = nullptr;
+QueueOnList::QueueOnList(const QueueOnList &arr) {
+	begin_ = nullptr;
 	if (arr.empty()) return;
-	head_ = new Node(nullptr, arr.head_->data_);
-	Node *data = arr.head_;
-	Node *current = head_;
-	while (data->next_ != nullptr) {
+	begin_ = new Node(nullptr, arr.begin_->data_);
+	end_ = begin_;
+	Node* data = arr.begin_;
+	while (data != arr.end_) {
 		data = data->next_;
-		current->next_ = new Node(data->next_, data->data_);
-		if (current->next_ != nullptr) current = current->next_;
+		end_->next_ = new Node(end_, data->data_);
+		end_->next_->prev_ = end_;
+		//if (end_->next_ != nullptr) 
+		end_ = end_->next_;
 	}
 }
 
-StackOnList::~StackOnList() {
+QueueOnList::~QueueOnList() {
 	while (!empty()) pop();
 }
 
-void StackOnList::push(const int val) {
-	head_ = new Node(head_, val);
+void QueueOnList::push(const int val) {
+	if (empty()) {
+		end_ = new Node(nullptr, val);
+		begin_ = end_;
+	}
+	else {
+		end_->next_ = new Node(end_, val);
+		end_->next_->prev_ = end_;
+		end_ = end_->next_;
+	}
 }
 
-int& StackOnList::top() {
-	if (empty()) throw runtime_error("empty!");
-	return head_->data_;
+int& QueueOnList::top() {
+	if (empty()) throw std::runtime_error("empty!");
+	return begin_->data_;
 }
 
-void StackOnList::pop() {
-	if (empty()) throw runtime_error("empty!");
-	Node *old = head_;
-	head_ = head_->next_;
+void QueueOnList::pop() {
+	if (empty()) throw std::runtime_error("empty!");
+	Node *old = begin_;
+	begin_ = begin_->next_;
 	delete old;
 }
 
-StackOnList& StackOnList::operator=(const StackOnList &arr) {
+QueueOnList& QueueOnList::operator=(const QueueOnList &arr) {
 	if (&arr == this) return *this;
-	StackOnList temp(arr);
-	Node* tmp = temp.head_;
-	temp.head_ = head_;
-	head_ = tmp;
+	QueueOnList temp(arr);
+	Node* tmp = temp.end_;
+	temp.end_ = end_;
+	end_ = tmp;
 	return (*this);
 }

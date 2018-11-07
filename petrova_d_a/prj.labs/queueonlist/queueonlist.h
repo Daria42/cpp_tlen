@@ -3,23 +3,25 @@
 
 #include <iosfwd>
 
-class StackOnList {
+class QueueOnList {
 public:
-	StackOnList() = default;
-	StackOnList(const StackOnList &arr);
-	~StackOnList();
+	QueueOnList() = default;
+	QueueOnList(const QueueOnList &arr);
+	~QueueOnList();
 	void push(const int val);
 	void pop();
 	int& top();
-	bool empty() const { return head_ == nullptr; };
-	StackOnList& operator=(const StackOnList &arr);
+	bool empty() const { return begin_ == nullptr; };
+	QueueOnList& operator=(const QueueOnList &arr);
 private:
 	struct Node {
 		Node* next_{ nullptr };
+		Node* prev_{ nullptr };
 		int data_{ 0 };
-		Node(Node* next, const int &data) : next_(next), data_(data) { }
+		Node(Node* prev, const int &data) : prev_(prev), data_(data) { }
 	};
-	Node* head_{ nullptr };
+	Node* begin_{ nullptr };
+	Node* end_{ nullptr };
 };
 
 #endif
