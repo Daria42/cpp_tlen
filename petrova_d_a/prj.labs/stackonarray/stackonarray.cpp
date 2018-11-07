@@ -1,8 +1,6 @@
 #include <iostream>
 #include "stackonarray.h"
 
-using namespace std;
-
 StackOnArray::StackOnArray(const StackOnArray &arr) {
 	capacity_ = arr.capacity_;
 	head_ = arr.head_;
@@ -25,20 +23,20 @@ void StackOnArray::push(const int val) {
 }
 
 int& StackOnArray::top() {
-	if (empty()) throw runtime_error("empty!");
+	if (empty()) throw std::runtime_error("empty!");
 	return data_[head_];
 }
 
 void StackOnArray::pop() {
-	if (empty()) throw runtime_error("empty!");
+	if (empty()) throw std::runtime_error("empty!");
 	head_--;
 }
 
 StackOnArray& StackOnArray::operator=(const StackOnArray &arr) {
 	if (&arr == this) return *this;
 	StackOnArray temp(arr);
-	swap(temp.data_, data_);
-	swap(temp.head_, head_);
-	swap(temp.capacity_, capacity_);
+	std::swap(temp.data_, data_);
+	std::swap(temp.head_, head_);
+	std::swap(temp.capacity_, capacity_);
 	return (*this);
 }
