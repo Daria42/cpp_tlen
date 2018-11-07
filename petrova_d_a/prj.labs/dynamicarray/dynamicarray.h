@@ -8,12 +8,14 @@ class DynamicArray {
 public:
 	DynamicArray() = default;
 	DynamicArray(const ptrdiff_t size);
+	DynamicArray(const ptrdiff_t size, const T &val);
 	DynamicArray(const DynamicArray &arr);
 	~DynamicArray() { delete[] data_; data_ = nullptr; };
 	ptrdiff_t size() const { return size_; }
 	T& operator[](const ptrdiff_t index);
 	const T& operator[](const ptrdiff_t index) const;
 	void resize(const ptrdiff_t size);
+	void resize(const ptrdiff_t size, const T &val);
 	const DynamicArray &operator=(const DynamicArray<T> &arr);
 private:
 	ptrdiff_t size_{ 0 };

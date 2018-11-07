@@ -1,12 +1,19 @@
 #include "dynamicarray.h"
 
-using namespace std;
-
 template <typename T>
 DynamicArray<T>::DynamicArray(const ptrdiff_t size): size_(size) {
 	if (size < 0) throw invalid_argument("size < 0 !");
-	capacity_ = size * 2;
+	capacity_ = size_ * 2;
 	if (capacity_ > 0) data_ = new T[capacity_];
+}
+
+template <typename T>
+DynamicArray<T>::DynamicArray(const ptrdiff_t size, const T &val) : size_(size) {
+	DynamicArray<T> temp(size);
+	std::swap(size_, temp.size_);
+	std::swap(capacity_, temp.capacity_);
+	std::swap(data_, temp.data_);
+	for (int i = 0; i < size_; i++) *(data_ + i) = val;
 }
 
 template <typename T>
@@ -53,4 +60,11 @@ void DynamicArray<T>::resize(const ptrdiff_t size) {
 		data_ = data;
 		size_ = size;
 	}
+}
+
+template <typename T>
+void DynamicArray<T>::resize(const ptrdiff_t size, const T & val) {
+	resize(size);
+	for (int i = 0; i < size_; i++)
+		data_[i] = val;
 }
