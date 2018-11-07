@@ -9,9 +9,7 @@ template <typename T>
 void test(string test, T rhs, T ans) {
 	cout << test << ": " << rhs << " ";
 	if (rhs == ans) cout << "OK";
-	else {
-		cout << "WA: " << ans;
-	}
+	else cout << "WA: " << ans;
 	cout << endl;
 }
 
