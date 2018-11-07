@@ -1,24 +1,57 @@
 #include "rational.h"
 #include <iostream>
 #include <sstream>
+#include <string>
+
+using namespace std;
+
+template <typename T>
+void test(string test, T rhs, T ans) {
+	cout << test << ": " << rhs << " ";
+	if (rhs == ans) cout << "OK";
+	else {
+		cout << "NO: " << ans;
+	}
+	cout << endl;
+}
 
 int main() {
-	using namespace std;
-	Rational a(0), b(1, 2), c(3, 4), d(7, 4), e(0), f(2, 5), g(8), h(42);
-	a += b;
-	b -= c;
-	c /= d;
-	e *= f;
-	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
-	int k = 0;
-	a = b;
-	a += k;
-	b -= k;
-	c *= k;
-	d /= k;
-	cout << a + k << " " << b - k << " " << c * k << " " << d / k << endl;
-	cout << k + a << " " << k - b << " " << k * c << " " << k / d << endl;
-	//double k = 1.5;
-	//cout << k + a << " " << endl;
+	setlocale(LC_ALL, "Russian");
+
+	cout << "---Конструктор---" << endl;
+	Rational a;
+	test("Значение по умолчанию", a, Rational(0));
+	a = Rational(2, 8);
+	test("Создание и сокрщение дроби и оператор = ", a, Rational(1, 4));
+	a = Rational(6);
+	test("Создание дроби из целого числа", a, Rational(6, 1));
+	a = Rational(6, -3);
+	test("Отрицательные числа", a, Rational(-2, 1));
+	a = Rational(1, 2);
+	cout << endl;
+
+	cout << "---Арифметические операции---" << endl;
+	Rational b(2);
+	test("Сумма", a + b, Rational(5, 2));
+	test("Разность", a - b, Rational(-3, 2));
+	test("Умножение", a * b, Rational(1));
+	test("Деление", a / b, Rational(1, 4));
+	test("Присваивание суммы", a += b, Rational(5, 2));
+	test("Присваивание разности", a -= b, Rational(1, 2));
+	test("Присваивание произведения", a *= b, Rational(1));
+	test("Присваивание частного", a /= b, Rational(1, 2));
+	cout << endl;
+
+	cout << "---Смешанная арифметика---" << endl;
+	int k = 2;
+	test("Сумма", a + k, Rational(5, 2));
+	test("Разность", a - k, Rational(-3, 2));
+	test("Умножение", a * k, Rational(1));
+	test("Деление", a / k, Rational(1, 4));
+	test("Присваивание суммы", a += k, Rational(5, 2));
+	test("Присваивание разности", a -= k, Rational(1, 2));
+	test("Присваивание произведения", a *= k, Rational(1));
+	test("Присваивание частного", a /= k, Rational(1, 2));
+
 	return 0;
 }

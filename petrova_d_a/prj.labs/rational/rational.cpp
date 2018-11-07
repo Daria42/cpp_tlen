@@ -13,17 +13,17 @@ int gcd (int a, int b) {
 	return a;
 }
 
-Rational::Rational(const int numerator): Rational(numerator, 1) {}
+Rational::Rational(const int numerator): Rational(numerator, 1) { }
 
 Rational::Rational(const int numerator, const int denominator) : num(numerator), den(denominator) {
-	(*this).normal();
+	normal();
 };
 
 Rational& Rational::operator+=(const Rational& rhs) {
 	int temp = gcd(den, rhs.den);
 	num = num * (rhs.den / temp) + rhs.num * (den / temp);
 	den = den * rhs.den / temp;
-	(*this).normal();
+	normal();
 	return *this;
 }
 
@@ -37,7 +37,7 @@ Rational& Rational::operator-=(const Rational& rhs) {
 	int temp = gcd(den, rhs.den);
 	num = num * (rhs.den / temp) - rhs.num * (den / temp);
 	den = den * rhs.den / temp;
-	(*this).normal();
+	normal();
 	return *this;
 }
 
@@ -50,7 +50,7 @@ Rational operator-(const Rational& lhs, const Rational& rhs) {
 Rational& Rational::operator*=(const Rational& rhs) {
 	num = num * rhs.num;
 	den = den * rhs.den;
-	(*this).normal();
+	normal();
 	return *this;
 }
 
@@ -61,9 +61,11 @@ Rational operator*(const Rational& lhs, const Rational& rhs) {
 }
 
 Rational& Rational::operator/=(const Rational& rhs) {
-	num = num * rhs.den;
-	den = den * rhs.num;
-	(*this).normal();
+	if (rhs.den == 0) throw std::runtime_error("null division");
+	num *= rhs.den;
+	normal();
+	den *= rhs.num;
+	normal();
 	return *this;
 }
 
@@ -91,7 +93,9 @@ void Rational::normal() {
 		den *= -1;
 		num *= -1;
 	}
-	int mult = gcd(abs(den), num);
+	int mult = gcd(den, abs(num));
+	den /= mult;
+	num /= mult;
 }
 
 std::ostream& Rational::writeTo(std::ostream& ostrm) {
@@ -108,7 +112,7 @@ std::istream& Rational::readFrom(std::istream& istrm) {
 	if (Rational::seperator == seperator) {
 		num = numerator;
 		den = denumerator;
-		(*this).normal();
+		normal();
 	}
 	else if (istrm.good()) istrm.setstate(std::ios_base::failbit);
 	return istrm;

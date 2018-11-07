@@ -10,6 +10,10 @@ public:
 	Rational(const int numerator, const int denominator);
 	bool operator==(const Rational& rhs) const { return (num * rhs.den == rhs.den * num); }
 	bool operator!=(const Rational& rhs) const { return !operator==(rhs); }
+	bool operator>(const Rational& rhs) const { return (num * rhs.den - rhs.den * num > 0); }
+	bool operator<(const Rational& rhs) const { return (num * rhs.den - rhs.den * num < 0); }
+	bool operator>=(const Rational& rhs) const { return (num * rhs.den - rhs.den * num >= 0); }
+	bool operator<=(const Rational& rhs) const { return (num * rhs.den - rhs.den * num <= 0); }
 	Rational& operator=(const Rational& rhs) = default;
 	Rational& operator+=(const Rational& rhs);
 	Rational& operator+=(const int rhs) { return operator+=(Rational(rhs)); }
