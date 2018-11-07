@@ -2,48 +2,40 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+
+void mout(Matrix &m) {
+	cout << endl;
+	for (int i = 0; i < m.rows(); i++, cout << endl)
+		for (int j = 0; j < m.columns(); j++)
+			cout << m.get(i, j) << " ";
+	cout << endl;
+}
+
 int main() {
-	using namespace std;
+	setlocale(LC_ALL, "Russian");
+
+	cout << "---Работа с матрицами---";
 	Matrix A(2, 2);
-	A.get(0, 0) += 1;
-	cout << "-- A --" << endl;
-	for (int i = 0; i < A.rows(); i++, cout << endl)
-		for (int j = 0; j < A.columns(); j++)
-			cout << A.get(i, j) << " ";
+	cout << endl << "По умолчанию (Матрица A):";
+	mout(A);
+	A.get(0, 0) = 1;
+	cout << endl << "Изменение элемента (1, 1) на 1:";
+	mout(A);
+	Matrix B = A;
+	cout << endl << "Оператор присваивания (Матрица B):";
+	mout(B);
+	B.get(0, 0) += 10;
+	cout << endl << "Прибавление к элементу (1, 1) матрицы B 10:";
+	mout(B);
+	cout << endl << "Матрица A:";
+	mout(A);
 	cout << endl;
-	Matrix B(2, 2);
-	A = B;
-	B.get(0, 0) += 2;
-	cout << "-- A --" << endl;
-	for (int i = 0; i < A.rows(); i++, cout << endl)
-		for (int j = 0; j < A.columns(); j++)
-			cout << A.get(i, j) << " ";
-	cout << endl;
-	A.resize(5, 3);
-	cout << "-- A --" << endl;
-	for (int i = 0; i < A.rows(); i++, cout << endl)
-		for (int j = 0; j < A.columns(); j++)
-			cout << A.get(i, j) << " ";
-	cout << endl;
-	A.get(3, 2) = 6;
-	A.get(3, 1) = 6;
-	A.get(3, 0) = 6;
-	Matrix C(A);
-	cout << "-- C --" << endl;
-	for (int i = 0; i < C.rows(); i++, cout << endl)
-		for (int j = 0; j < C.columns(); j++)
-			cout << C.get(i, j) << " ";
-	try {
-		Matrix d(-1, 12);
-	}
-	catch (invalid_argument ex) {
-		cout << "Tested size < 0" << endl;
-	}
-	try {
-		A.get(10, 100);
-	}
-	catch (out_of_range ex) {
-		cout << "Tested out of range" << endl;
-	}
+
+	cout << "---Исключения---" << endl;
+	try { Matrix d(-1, 12); }
+	catch (invalid_argument ex) { cout << "Матрица с отрицатеьным размером не создаётся" << endl; }
+	try { A.get(10, 100); }
+	catch (out_of_range ex) { cout << "Нельзя получить элемент матрицы по выходящим за границы индексам" << endl; }
 	return 0;
 }
