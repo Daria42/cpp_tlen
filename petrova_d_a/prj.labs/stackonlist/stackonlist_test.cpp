@@ -2,36 +2,28 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+
 int main() {
-	using namespace std;
+	setlocale(LC_ALL, "RUS");
+
 	StackOnList a;
-	cout << a.empty() << " ";
+	cout << "Пустой список a" << endl;
+	cout << "a.empty() возвращает: " << a.empty() << endl;
 	a.push(1);
-	cout << a.empty() << " ";
-	a.pop();
-	cout << a.empty() << endl;
+	cout << "Добавление элемента { 1 } в a" << endl;
+	cout << "a.empty() возвращает: " << a.empty() << endl;
+	cout << "a.top() возвращает: " << a.top() << endl;
+	cout << "Удаление элемента из a (a.pop())" << endl;
+	try { a.pop(); }
+	catch (runtime_error ex) { cout << "При попытке удалить элемент из пустого стэка выбрасывается исключение" << endl; }
+	cout << "Добавление двух элементов в a" << endl;
+	a.push(1);
 	a.push(2);
-	a.push(3);
-	a.pop();
-	a.push(4);
-	cout << a.top() << " ";
-	a.push(5);
-	cout << a.top() << " ";
-	a.pop();
-	a.pop();
-	cout << a.top() << endl;
-	a.push(1);
-	StackOnList b(a);
-	b.pop();
-	cout << a.top() << " " << b.top() << endl;
-	a = b;
-	cout << a.top() << " " << b.top() << endl;
-	a.pop();
-	try {
-		a.pop();
-	}
-	catch (runtime_error ex) {
-		cout << "Can't pop!" << endl;
-	}
+	StackOnList b = a;
+	b.push(3);
+	cout << "Создание копии стэка a и добавление в него ещё одного элемента" << endl;
+	cout << "a.top() возвращает: " << a.top() << endl;
+	cout << "b.top() возвращает: " << b.top() << endl;
 	return 0;
 }
