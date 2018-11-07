@@ -61,7 +61,7 @@ Rational operator*(const Rational& lhs, const Rational& rhs) {
 }
 
 Rational& Rational::operator/=(const Rational& rhs) {
-	if (rhs.den == 0) throw std::runtime_error("null division");
+	if (rhs.num == 0) throw std::runtime_error("null division");
 	num *= rhs.den;
 	normal();
 	den *= rhs.num;

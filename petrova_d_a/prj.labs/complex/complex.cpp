@@ -29,7 +29,10 @@ Complex operator-(const Complex& lhs, const Complex& rhs) {
 }
 
 Complex& Complex::operator*=(const Complex& rhs) {
-	re = re + rhs.re - im * rhs.im; im += rhs.im;
+	double tempre = re * rhs.re - im * rhs.im;
+	double tempim = re * rhs.im + rhs.re * im;
+	re = tempre;
+	im = tempim;
 	return *this;
 }
 
@@ -40,6 +43,7 @@ Complex operator*(const Complex& lhs, const Complex& rhs) {
 }
 
 Complex& Complex::operator/=(const Complex& rhs) {
+	if (rhs.im == 0.0 && rhs.re == 0)  throw std::runtime_error("null division");
 	double tre = re, tim = im;
 	re = (tre * rhs.re + tim * rhs.im) / (rhs.re * rhs.re + rhs.im * rhs.im);
 	im = (rhs.re * tim - tre * rhs.im) / (rhs.re * rhs.re + rhs.im * rhs.im);

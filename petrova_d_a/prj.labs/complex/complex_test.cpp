@@ -9,7 +9,7 @@ void test(string test, T rhs, T ans) {
 	cout << test << ": " << rhs << " ";
 	if (rhs == ans) cout << "OK";
 	else {
-		cout << "NO: " << ans;
+		cout << "WA: " << ans;
 	}
 	cout << endl;
 }
@@ -19,50 +19,41 @@ int main() {
 
 	cout << "---Конструктор---" << endl;
 	Complex a;
-	test("Значение по умолчанию", a, Complex(0, 0));
-	a = Complex(2, 8);
-	test("Создание комплексного числа, оператор = ", a, Complex(2, 8));
+	test("Значение по умолчанию", a, Complex(0.0, 0.0));
+	a = Complex(2.0, 8.0);
+	test("Создание комплексного числа, оператор = ", a, Complex(2.0, 8.0));
 	a = Complex(6.0);
-	test("Создание комплексного числа по действительной части", a, Complex(6, 0));
+	test("Создание комплексного числа по действительной части", a, Complex(6.0, 0.0));
 	cout << endl;
-	
-	/*a = Complex(1, 2);
+
 	cout << "---Арифметические операции---" << endl;
-	Rational b(2);
-	test("Сумма", a + b, Rational(5, 2));
-	test("Разность", a - b, Rational(-3, 2));
-	test("Умножение", a * b, Rational(1));
-	test("Деление", a / b, Rational(1, 4));
-	test("Присваивание суммы", a += b, Rational(5, 2));
-	test("Присваивание разности", a -= b, Rational(1, 2));
-	test("Присваивание произведения", a *= b, Rational(1));
-	test("Присваивание частного", a /= b, Rational(1, 2));
+	a = Complex(1.0, 2.0);
+	Complex b(2.0, 1.0);
+	test("Сумма", a + b, Complex(3.0, 3.0));
+	test("Разность", a - b, Complex(-1.0, 1.0));
+	test("Умножение", a * b, Complex(0.0, 5.0));
+	test("Деление", a / b, Complex(0.8, 0.6));
+	test("Присваивание суммы", a += b, Complex(3.0, 3.0));
+	test("Присваивание разности", a -= b, Complex(1.0, 2.0));
+	test("Присваивание произведения", a *= b, Complex(0.0, 5.0));
+	test("Присваивание частного", a /= b, Complex(1.0, 2.0));
 	cout << endl;
 
 	cout << "---Смешанная арифметика---" << endl;
-	int k = 2;
-	test("Сумма", a + k, Rational(5, 2));
-	test("Разность", a - k, Rational(-3, 2));
-	test("Умножение", a * k, Rational(1));
-	test("Деление", a / k, Rational(1, 4));
-	test("Присваивание суммы", a += k, Rational(5, 2));
-	test("Присваивание разности", a -= k, Rational(1, 2));
-	test("Присваивание произведения", a *= k, Rational(1));
-	test("Присваивание частного", a /= k, Rational(1, 2));
+	double k = 2.0;
+	test("Сумма", a + k, Complex(3.0, 2.0));
+	test("Разность", a - k, Complex(-1.0, 2.0));
+	test("Умножение", a * k, Complex(2.0, 4.0));
+	test("Деление", a / k, Complex(0.5, 1.0));
+	test("Присваивание суммы", a += k, Complex(3.0, 2.0));
+	test("Присваивание разности", a -= k, Complex(1.0, 2.0));
+	test("Присваивание произведения", a *= k, Complex(2.0, 4.0));
+	test("Присваивание частного", a /= k, Complex(1.0, 2.0));
+	cout << endl;
 
-	Complex a(0), b(1, 2), c(3, 4), d(7, 4), e(10), f(2, 5), g(8), h(42);
-	a += b;
-	b -= c;
-	c /= d;
-	e *= f;
-	cout << a + b << " " << c - d << " " << e * f << " " << g / h << endl;
-	double k = 2;
-	a += k;
-	b /= k;
-	c -= k;
-	d *= k;
-	cout << a << " " << b << " " << c << " " << d << endl;
-	cout << a + k << " " << b + k << " " << c * k << " " << d / k << endl;
-	cout << k + a << " " << k + b << " " << k * c << " " << k / d << endl;*/
+	cout << "---Исключения---" << endl;
+	try { a / Complex(0, 0); }
+	catch (runtime_error e) { cout << "Нельзя делить на 0!" << endl; }
+	cout << endl;
 	return 0;
 }

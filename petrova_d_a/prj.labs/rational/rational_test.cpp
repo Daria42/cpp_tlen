@@ -10,7 +10,7 @@ void test(string test, T rhs, T ans) {
 	cout << test << ": " << rhs << " ";
 	if (rhs == ans) cout << "OK";
 	else {
-		cout << "NO: " << ans;
+		cout << "WA: " << ans;
 	}
 	cout << endl;
 }
@@ -52,6 +52,11 @@ int main() {
 	test("Присваивание разности", a -= k, Rational(1, 2));
 	test("Присваивание произведения", a *= k, Rational(1));
 	test("Присваивание частного", a /= k, Rational(1, 2));
+	cout << endl;
 
+	cout << "---Исключения---" << endl;
+	try { a / Rational(0); }
+	catch (runtime_error e) { cout << "Нельзя делить на 0!" << endl; }
+	cout << endl;
 	return 0;
 }
