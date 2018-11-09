@@ -6,13 +6,9 @@
 #include <QtGui>
 #include <QtWidgets>
 
-//const QColor defaultVertexColor(0, 51, 153);
-//const QColor defaultEdgeColor = Qt::black;
-
 struct Vertex {
 	Vertex() = default;
 	Vertex(int number, int type) : number_(number), type_(type) { }
-	//~Vertex() { delete ellipse_; }
 	int number_;
 	int type_{ 0 };
 	std::vector < std::pair <ptrdiff_t, ptrdiff_t> > links_;
@@ -22,11 +18,10 @@ struct Vertex {
 struct Edge {
 	Edge() = default;
 	Edge(int number, ptrdiff_t from, ptrdiff_t to, int type) : number_(number), from_(from), to_(to), type_(type) { }
-	//~Edge() { delete line_; }
 	int number_;
 	int type_{ -1 };
 	ptrdiff_t from_, to_;
-	QGraphicsItem *line_{ nullptr };
+	QGraphicsLineItem* line_{ nullptr };
 };
 
 class Graph {
@@ -43,7 +38,7 @@ public:
 	Vertex& getVertex(const ptrdiff_t index);
 	Edge& getEdge(const ptrdiff_t index);
 	void addVertex(int type = 0);
-	//void addEdge(ptrdiff_t from, ptrdiff_t to, int type = 0);
+	void addEdge(ptrdiff_t from, ptrdiff_t to, int type = 0);
 	bool isVertexValid(ptrdiff_t v) { return (vertices_[v].type_ >= 0); }
 	bool isEdgeValid(ptrdiff_t e) { return (edges_[e].type_ >= 0); }
 	//void deleteEdge(ptrdiff_t e);

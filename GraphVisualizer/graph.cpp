@@ -8,15 +8,6 @@ Graph::Graph(size_t size) {
 		vertices_[i].number_ = i + 1;
 }
 
-//Graph::~Graph() {
-//	for (int i = 0; i < vertices_.size(); i++)
-//		if (vertices_[i].ellipse_ != nullptr)
-//			delete vertices_[i].ellipse_;
-//	for (int i = 0; i < edges_.size(); i++)
-//		if (edges_[i].line_ != nullptr)
-//			delete edges_[i].line_;
-//}
-
 Vertex& Graph::getVertex(const ptrdiff_t index) {
 	//ex
 	return vertices_[index];
@@ -46,12 +37,11 @@ int Graph::edgesCount() {
 void Graph::addVertex(int type) {
 	vertices_.push_back(Vertex((int)vertices_.size(), type));
 }
-//
-//void Graph::addEdge(ptrdiff_t from, ptrdiff_t to, int type = 0) {
-//	edges_.push_back(Edge(edges_.size(), from, to, type));
-//	vertices_[from].links_.push_back({ to, edges_.back().number_ });
-//	vertices_[to].links_.push_back({ from, edges_.back().number_ });
-//}
+
+void Graph::addEdge(ptrdiff_t from, ptrdiff_t to, int type) {
+	edges_.push_back(Edge((int)edges_.size(), from, to, type));
+	vertices_[from].links_.push_back({ to, edges_.back().number_ });
+}
 
 //void Graph::deleteEdge(ptrdiff_t e) {
 //	ptrdiff_t from = edges[e].from;

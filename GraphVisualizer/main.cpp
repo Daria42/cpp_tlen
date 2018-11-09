@@ -10,9 +10,11 @@ int main(int args, char* argv[]) {
 	mainwindow.show();
 	Graph g(5);
 	mainwindow.setGraph(g);
+	g.addEdge(0, 1);
+	g.addEdge(2, 1);
 	mainwindow.drawGraph();
-	g.addVertex();
-	mainwindow.drawVertex(g.verticesArraySize() - 1);
+	//g.addVertex();
+	//mainwindow.drawVertex(g.verticesArraySize() - 1);
 	/*
 
 		Подумать над отображением кратных рёбер и петель
