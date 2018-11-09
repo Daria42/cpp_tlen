@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1106</width>
+    <height>765</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>520</y>
+      <y>590</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -39,7 +39,7 @@
       <x>10</x>
       <y>170</y>
       <width>171</width>
-      <height>341</height>
+      <height>411</height>
      </rect>
     </property>
    </widget>
@@ -168,9 +168,22 @@
      <rect>
       <x>190</x>
       <y>10</y>
-      <width>601</width>
-      <height>541</height>
+      <width>911</width>
+      <height>711</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonClear">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>630</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear</string>
     </property>
    </widget>
   </widget>
@@ -179,7 +192,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1106</width>
      <height>21</height>
     </rect>
    </property>

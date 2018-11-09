@@ -6,48 +6,53 @@
 #include <QtGui>
 #include <QtWidgets>
 
-const QColor defaultVertexColor(0, 51, 153);
-const QColor defaultEdgeColor = Qt::black;
-const double defaultVertexSize = 50.0;
+//const QColor defaultVertexColor(0, 51, 153);
+//const QColor defaultEdgeColor = Qt::black;
+
+struct Vertex {
+	Vertex() = default;
+	Vertex(int number, int type) : number_(number), type_(type) { }
+	//~Vertex() { delete ellipse_; }
+	int number_;
+	int type_{ 0 };
+	std::vector < std::pair <ptrdiff_t, ptrdiff_t> > links_;
+	QGraphicsEllipseItem* ellipse_{ nullptr };
+};
+
+struct Edge {
+	Edge() = default;
+	Edge(int number, ptrdiff_t from, ptrdiff_t to, int type) : number_(number), from_(from), to_(to), type_(type) { }
+	//~Edge() { delete line_; }
+	int number_;
+	int type_{ -1 };
+	ptrdiff_t from_, to_;
+	QGraphicsItem *line_{ nullptr };
+};
 
 class Graph {
 public:
 	Graph() = default;
+	Graph(const Graph &) = delete;
+	void operator=(const Graph &) = delete;
 	Graph(size_t size);
-	~Graph();
-	int verticesCount() { return vertices.size(); }
-	int edgesCount() { return edges.size(); }
-	void addVertex(double x = 0.0, double y = 0.0, double size = defaultVertexSize, QColor color = defaultVertexColor);
-	void addEdge(ptrdiff_t from, ptrdiff_t to, QColor color = defaultEdgeColor);
-	bool isVertexValid(ptrdiff_t v) { return (vertices[v].number >= 0); }
-	bool isEdgeValid(ptrdiff_t e) { return (edges[e].number >= 0); }
-	void deleteEdge(ptrdiff_t e);
-	void deleteVertex(ptrdiff_t v);
-	void renumber();
+	~Graph() = default;
+	int verticesCount();
+	int edgesCount();
+	int verticesArraySize() { return (int)vertices_.size(); }
+	int edgesArraySize() { return (int)edges_.size(); }
+	Vertex& getVertex(const ptrdiff_t index);
+	Edge& getEdge(const ptrdiff_t index);
+	void addVertex(int type = 0);
+	//void addEdge(ptrdiff_t from, ptrdiff_t to, int type = 0);
+	bool isVertexValid(ptrdiff_t v) { return (vertices_[v].type_ >= 0); }
+	bool isEdgeValid(ptrdiff_t e) { return (edges_[e].type_ >= 0); }
+	//void deleteEdge(ptrdiff_t e);
+	//void deleteVertex(ptrdiff_t v);
+	//void renumber();
 
 private:
-
-	struct Vertex {
-		Vertex() = default;
-		~Vertex() { delete ellipse; }
-		ptrdiff_t number;
-		std::vector < std::pair <ptrdiff_t, ptrdiff_t> > links;
-		double x, y;
-		QColor color;
-		QGraphicsEllipseItem* ellipse;
-	};
-
-	struct Edge {
-		Edge() = default;
-		~Edge() { delete line; }
-		ptrdiff_t number;
-		ptrdiff_t from, to;
-		QColor color;
-		QGraphicsItem *line;
-	};
-
-	std::vector<Vertex> vertices;
-	std::vector<Edge> edges;
+	std::vector<Vertex> vertices_;
+	std::vector<Edge> edges_;
 };
 
 #endif

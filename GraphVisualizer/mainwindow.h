@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "graph.h"
 #include <QMainWindow>
 #include <QtCore>
 #include <QtGui>
@@ -15,13 +16,15 @@ class MainWindow : public QMainWindow {
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-	void drawGraph();
     ~MainWindow();
+	void setGraph(Graph &g) { graph = &g; };
+	void drawGraph();
+	void drawVertex(ptrdiff_t index);
 
 private:
     Ui::MainWindow *ui;
-
 	QGraphicsScene *scene;
+	Graph *graph{ nullptr };
 };
 
 #endif // MAINWINDOW_H
