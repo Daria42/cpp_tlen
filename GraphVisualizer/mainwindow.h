@@ -18,8 +18,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 	void setGraph(Graph &g) { graph = &g; };
+	void drawVertex(ptrdiff_t index, double x = 0.0, double y = 0.0);
+	void drawEdge(ptrdiff_t index);
 	void drawGraph();
-	void drawVertex(ptrdiff_t index);
 
 private:
     Ui::MainWindow *ui;
