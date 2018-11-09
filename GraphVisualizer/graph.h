@@ -3,8 +3,8 @@
 
 #include <iosfwd>
 #include <QtCore>
-//#include <QtGui>
-//#include <QtWidgets>
+#include <QtGui>
+#include <QtWidgets>
 
 struct Vertex {
 	Vertex() = default;
