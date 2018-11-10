@@ -1,0 +1,44 @@
+#include "mainwindow.h"
+//#include "graph.h"
+#include <qapplication>
+#include <iostream> //test
+
+int main(int args, char* argv[]) {
+	using namespace std;
+	QApplication app(args, argv);
+	MainWindow mainWindow;
+	mainWindow.show();
+	//Graph g(5);
+	//mainwindow.setGraph(g);
+	//g.addEdge(0, 1);
+	//g.addEdge(2, 1);
+	//mainwindow.drawGraph();
+	//g.addVertex();
+	//mainwindow.drawVertex(g.verticesArraySize() - 1);
+	/*
+
+		Подумать над отображением кратных рёбер и петель
+
+		Функции парсинга матрицы и списка рёбер
+
+		Создание и отрисовка графа:
+			Класс вершины
+			Класс ребра
+			Функции отрисовки вершины и ребра
+			Класс графа
+			Неориентированный граф (наследование)
+			Неориентированное ребро (наследование)
+			Отображение веса рёбер
+			Функция создания графа по заданным параметрам
+
+		Редактирование графа:
+			Добавить новую вершину / ребро
+			Удалить вершину / ребро
+			Перекрасить вершину или ребро
+			Перенумеровать вершину
+			Пронумеровать все вершины от единицы до n
+	
+	*/
+
+	return app.exec();
+}
