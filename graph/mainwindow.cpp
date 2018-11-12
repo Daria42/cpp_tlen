@@ -8,19 +8,30 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 	scene = new GraphScene(this);
-	ui->graphicsView->setScene(scene);
-}
-
-void MainWindow::deleteItem() {
-	//foreach(QGraphicsItem *item, scene->selectedItems()) {
-	//	if (item->type() == )
-	//}
-}
-
-void MainWindow::vertexInserted(Vertex *vertex) {
-
+	view = ui->graphicsView;
+	view->setScene(scene);
+	connect(ui->pushButtonMove, SIGNAL(released()), this, SLOT(moveClicked()));
+	connect(ui->pushButtonAddVertex, SIGNAL(released()), this, SLOT(addVertexClicked()));
+	connect(ui->pushButtonAddEdge, SIGNAL(released()), this, SLOT(addEdgeClicked()));
+	connect(ui->pushButtonClear, SIGNAL(released()), this, SLOT(clearClicked()));
 }
 
 MainWindow::~MainWindow() {
-    delete ui;
+	delete ui;
+}
+
+void MainWindow::moveClicked() {
+	scene->setMode(scene->MoveVertex);
+}
+
+void MainWindow::addVertexClicked() {
+	scene->setMode(scene->InsertVertex);
+}
+
+void MainWindow::addEdgeClicked() {
+	scene->setMode(scene->InsertEdge);
+}
+
+void MainWindow::clearClicked() {
+
 }

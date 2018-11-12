@@ -6,8 +6,7 @@
 #include <QMainWindow>
 
 class GraphScene;
-
-class QAction;
+class QPushButton;
 
 namespace Ui {
 class MainWindow;
@@ -20,18 +19,16 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-	void deleteItem();
-	void vertexInserted(Vertex *vertex);
+private slots:   
+	void moveClicked();
+	void addVertexClicked();
+	void addEdgeClicked();
+	void clearClicked();
 
 private:
     Ui::MainWindow *ui;
 	GraphScene *scene;
 	QGraphicsView *view;
-
-	QAction *exitAction;
-	QAction *addAction;
-	QAction *deleteAction;
 };
 
 #endif // MAINWINDOW_H
