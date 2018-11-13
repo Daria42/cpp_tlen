@@ -5,27 +5,28 @@
 #include <QList>
 
 class QGraphicsItem;
-class QGraphicsScene;
-class QGraphicsSceneMouseEvent;
-class QMenu;
-class QGraphicsSceneContextMenuEvent;
-class QWidget;
 class Edge;
 
 class Vertex : public QGraphicsEllipseItem {
 public:
 	enum { Type = UserType + 41 };
-	Vertex(QGraphicsItem *parent = 0); //QMenu *contextMenu
+	Vertex(QGraphicsItem *parent = 0);
 	int type() const override { return Type; }
+	int number() { return number_; }
 	void removeEdge(Edge *edge);
 	void removeEdges();
 	void addEdge(Edge *edge);
+	static int getNumber() { return counter_++; }
+	static void resertCounter() { counter_ = 0; }
 
 protected:
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
 private:
-	QList<Edge *> edges;
+	static int counter_;
+	int number_{ 0 }; //имя вершины
+	QList<Edge *> edges_; //список смежности
 };
 
 #endif //VERTEX_H

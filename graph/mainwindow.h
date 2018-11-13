@@ -24,11 +24,11 @@ private slots:
 	void addVertexClicked();
 	void addEdgeClicked();
 	void clearClicked();
+	void renameAllClicked();
 
 private:
-    Ui::MainWindow *ui;
-	GraphScene *scene;
-	QGraphicsView *view;
+    Ui::MainWindow *ui_;
+	GraphScene *scene_;
 };
 
 #endif // MAINWINDOW_H

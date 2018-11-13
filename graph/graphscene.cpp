@@ -4,7 +4,7 @@
 
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
 	if (mouseEvent->button() == Qt::RightButton) {
-		QList<QGraphicsItem *> elements = items(mouseEvent->scenePos()); //поиск всех возможных вершин
+		QList<QGraphicsItem *> elements = items(mouseEvent->scenePos());
 		if (elements.count() != 0 && elements.first()->type() == Vertex::Type) {
 			Vertex *vertex = qgraphicsitem_cast<Vertex *>(elements.first());
 			vertex->removeEdges();
@@ -20,53 +20,53 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
 		}
 	} //Удаление элементов правой кнопкой мыши
 	else if (mouseEvent->button() == Qt::LeftButton) {
-		if (mode == InsertVertex) {
+		if (mode_ == InsertVertex) {
 			Vertex *vertex = new Vertex();
-			vertex->setRect(-mainVertexSize / 2, -mainVertexSize / 2, mainVertexSize, mainVertexSize);
-			vertex->setBrush(mainVertexColor);
-			vertex->setPen(QPen(mainEdgeColor, 0));
+			vertex->setRect(vertexRect_);
+			vertex->setBrush(vertexBrush_);
+			vertex->setPen(vertexPen_);
 			vertex->setPos(mouseEvent->scenePos());
 			addItem(vertex);
 			emit(vertexInserted(vertex));
 		} //создание новой вершины
-		else if (mode == InsertEdge) {
-			edgeLine = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(), mouseEvent->scenePos()));
-			edgeLine->setPen(QPen(mainEdgeColor, 2));
-			edgeLine->setZValue(-100);
-			addItem(edgeLine);
+		else if (mode_ == InsertEdge) {
+			line_ = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(), mouseEvent->scenePos()));
+			line_->setPen(edgePen_);
+			line_->setZValue(-100);
+			addItem(line_);
 		} //начало создания нового ребра
 		QGraphicsScene::mousePressEvent(mouseEvent);
 	}
 }
 
 void GraphScene::mouseMoveEvent(QGraphicsSceneMouseEvent * mouseEvent) {
-	if (mode == MoveVertex) QGraphicsScene::mouseMoveEvent(mouseEvent);
-	else if (mode == InsertEdge && edgeLine != 0) {
-		QLineF movedLine(edgeLine->line().p1(), mouseEvent->scenePos()); //временное изображение ребра
-		edgeLine->setLine(movedLine);
+	if (mode_ == MoveVertex) QGraphicsScene::mouseMoveEvent(mouseEvent);
+	else if (mode_ == InsertEdge && line_ != 0) {
+		QLineF movedLine(line_->line().p1(), mouseEvent->scenePos()); //временное изображение ребра
+		line_->setLine(movedLine);
 	} //если начато рисование нового ребра, отображение на экране соответствующей линии
 }
 
 void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) {
-	if (mode == InsertEdge && edgeLine != 0) {
-		QList<QGraphicsItem *> from = items(edgeLine->line().p1()); //поиск всех возможных вершин
-		if (from.count() && from.first() == edgeLine) from.removeFirst();
-		QList<QGraphicsItem *> to = items(edgeLine->line().p2());
-		if (to.count() && to.first() == edgeLine) to.removeFirst();
-		removeItem(edgeLine);
-		delete edgeLine;
+	if (mode_ == InsertEdge && line_ != 0) {
+		QList<QGraphicsItem *> from = items(line_->line().p1()); //поиск всех возможных вершин
+		if (from.count() && from.first() == line_) from.removeFirst();
+		QList<QGraphicsItem *> to = items(line_->line().p2());
+		if (to.count() && to.first() == line_) to.removeFirst();
+		removeItem(line_);
+		delete line_;
 		if (from.count() && to.count() && from.first() != to.first() &&
 			from.first()->type() == Vertex::Type && to.first()->type() == Vertex::Type) {
 			Vertex *first = qgraphicsitem_cast<Vertex *>(from.first());
 			Vertex *second = qgraphicsitem_cast<Vertex *>(to.first());
 			Edge *edge = new Edge(first, second);
-			edge->setPen(QPen(mainEdgeColor, 2));
+			edge->setPen(edgePen_);
 			first->addEdge(edge);
 			second->addEdge(edge);
 			addItem(edge);
 			edge->updatePos();
 		} //Создание нового ребра, если пользователем выполнены необходимые действия
-		edgeLine = 0;
+		line_ = 0;
 	}
 	QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }

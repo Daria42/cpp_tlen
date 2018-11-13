@@ -5,33 +5,37 @@
 
 #include <Qwidget>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
-    ui->setupUi(this);
-	scene = new GraphScene(this);
-	view = ui->graphicsView;
-	view->setScene(scene);
-	connect(ui->pushButtonMove, SIGNAL(released()), this, SLOT(moveClicked()));
-	connect(ui->pushButtonAddVertex, SIGNAL(released()), this, SLOT(addVertexClicked()));
-	connect(ui->pushButtonAddEdge, SIGNAL(released()), this, SLOT(addEdgeClicked()));
-	connect(ui->pushButtonClear, SIGNAL(released()), this, SLOT(clearClicked()));
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui_(new Ui::MainWindow) {
+    ui_->setupUi(this);
+	scene_ = new GraphScene(this);
+	ui_->graphicsView->setScene(scene_);
+	connect(ui_->pushButtonMove, SIGNAL(released()), this, SLOT(moveClicked()));
+	connect(ui_->pushButtonAddVertex, SIGNAL(released()), this, SLOT(addVertexClicked()));
+	connect(ui_->pushButtonAddEdge, SIGNAL(released()), this, SLOT(addEdgeClicked()));
+	connect(ui_->pushButtonClear, SIGNAL(released()), this, SLOT(clearClicked()));
 }
 
 MainWindow::~MainWindow() {
-	delete ui;
+	delete ui_;
 }
 
 void MainWindow::moveClicked() {
-	scene->setMode(scene->MoveVertex);
+	scene_->setMode(scene_->MoveVertex);
 }
 
 void MainWindow::addVertexClicked() {
-	scene->setMode(scene->InsertVertex);
+	scene_->setMode(scene_->InsertVertex);
 }
 
 void MainWindow::addEdgeClicked() {
-	scene->setMode(scene->InsertEdge);
+	scene_->setMode(scene_->InsertEdge);
 }
 
 void MainWindow::clearClicked() {
+	scene_->clear();
+	Vertex::resertCounter();
+}
+
+void MainWindow::renameAllClicked() {
 
 }

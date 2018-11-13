@@ -30,6 +30,19 @@
      </rect>
     </property>
    </widget>
+    <widget class="QPushButton" name="pushButtonMove">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Move</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="pushButtonAddVertex">
     <property name="geometry">
      <rect>
@@ -46,7 +59,7 @@
    <widget class="QPushButton" name="pushButtonAddEdge">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>190</x>
       <y>10</y>
       <width>81</width>
       <height>31</height>
@@ -54,19 +67,6 @@
     </property>
     <property name="text">
      <string>Add edge</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonMove">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Move</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButtonClear">

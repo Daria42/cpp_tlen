@@ -8,18 +8,20 @@ class QPointF;
 class QGraphicsEllipseItem;
 class QGraphicsLineItem;
 class QColor;
+class QRectF;
 
 class GraphScene : public QGraphicsScene {
 	Q_OBJECT
 
 public:
-	enum Mode { InsertVertex, InsertEdge, MoveVertex, DeleteVertex }; //режимы работы сцены
+	enum Mode { InsertVertex, InsertEdge, MoveVertex }; //режимы работы сцены
 	explicit GraphScene(QObject *parent = 0) : QGraphicsScene(parent) { }
-	void setVertexColor(const QColor &color) { mainVertexColor = color; } //установить дефолтный цвет вершины
-	void setEdgeColor(const QColor &color) { mainEdgeColor = color; } //установить дефолтнй цвет ребра
-	void setMode(Mode mode) { this->mode = mode; } //изменить режим сцены
-
-												   //private slots:
+	void setVertexBrushColor(const QColor &color) { vertexPen_.setColor(color); }
+	void setVertexPenColor(const QColor &color) { vertexBrush_.setColor(color); }
+	void setEdgeColor(const QColor &color) { edgePen_.setColor(color); }
+	void setVertexSize(const qreal &size) { vertexRect_.setRect(-size / 2, -size / 2, size, size); }
+	void setLineWidth(const int &width) { vertexPen_.setWidth(width); edgePen_.setWidth(width); }
+	void setMode(Mode mode) { mode_ = mode; }
 
 signals:
 	void vertexInserted(Vertex *vertex);
@@ -30,11 +32,12 @@ protected:
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
 private:
-	Mode mode{ InsertVertex }; //режим
-	QColor mainVertexColor{ Qt::blue }; //основой цвет вершин
-	QColor mainEdgeColor{ Qt::black }; //основной цвет рёбер
-	qreal mainVertexSize{ 50 };
-	QGraphicsLineItem *edgeLine{ nullptr }; //ребро в процессе создания
+	Mode mode_{ InsertVertex }; //режим сцены
+	QBrush vertexBrush_{ QBrush(Qt::white) }; //цвет вершины
+	QPen vertexPen_{ QPen(Qt::black, 2) }; //цвет границы эллипса вершины
+	QPen edgePen_{ QPen(Qt::black, 2) }; //цвет рёбер
+	QRectF vertexRect_{ QRectF(-25, -25, 50, 50) };
+	QGraphicsLineItem *line_{ nullptr }; //ребро в процессе создания
 };
 
 #endif //GRAPHSCENE_H
