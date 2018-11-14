@@ -30,6 +30,8 @@ protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 	void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+	//void wheelEvent(QWheelEvent* event) override;
+	//void wheelEvent(QWheelEvent* event) override;
 
 private:
 	Mode mode_{ InsertVertex }; //режим сцены
