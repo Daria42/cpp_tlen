@@ -19,9 +19,9 @@ protected:
 
 private:
 	int number_; //номер ребра
-	int weight_; //вес ребра
-	Vertex *from_; //откуда идёт ребро
-	Vertex *to_; //куда идёт ребро
+	int weight_{ 1 }; //вес ребра
+	Vertex *from_{ nullptr }; //откуда идёт ребро
+	Vertex *to_{ nullptr }; //куда идёт ребро
 };
 
 #endif //EDGE_H

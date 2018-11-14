@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui_(new Ui::MainW
     ui_->setupUi(this);
 	scene_ = new GraphScene(this);
 	ui_->graphicsView->setScene(scene_);
+	ui_->graphicsView->setSceneRect(scene_->sceneRect());
 	connect(ui_->pushButtonMove, SIGNAL(released()), this, SLOT(moveClicked()));
 	connect(ui_->pushButtonAddVertex, SIGNAL(released()), this, SLOT(addVertexClicked()));
 	connect(ui_->pushButtonAddEdge, SIGNAL(released()), this, SLOT(addEdgeClicked()));

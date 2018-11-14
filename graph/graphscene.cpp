@@ -62,7 +62,7 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) {
 			Edge *edge = new Edge(first, second);
 			edge->setPen(edgePen_);
 			first->addEdge(edge);
-			second->addEdge(edge);
+			//second->addEdge(edge);
 			addItem(edge);
 			edge->updatePos();
 		} //Создание нового ребра, если пользователем выполнены необходимые действия
