@@ -2,11 +2,10 @@
 #define MAINWINDOW_H
 
 #include "vertex.h"
-
 #include <QMainWindow>
 
 class GraphScene;
-class QPushButton;
+class QAction;
 
 namespace Ui {
 class MainWindow;
@@ -15,20 +14,20 @@ class MainWindow;
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
-public:
+ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:   
-	void moveClicked();
-	void addVertexClicked();
-	void addEdgeClicked();
-	void clearClicked();
-	void renameAllClicked();
+ private slots:
+    void newClicked();
+    void openClicked();
+    void saveClicked();
+    void helpClicked();
+    void exitClicked();
 
-private:
+ private:
     Ui::MainWindow *ui_;
-	GraphScene *scene_;
+    GraphScene *scene_;
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

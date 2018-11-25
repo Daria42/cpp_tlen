@@ -6,22 +6,23 @@
 #include <QList>
 
 class Edge : public QGraphicsLineItem {
-public:
-	enum{ Type = UserType + 29 };
-	Edge(Vertex *from, Vertex *to, QGraphicsItem *parent = 0);
-	int type() const override { return Type; }
-	Vertex *from() const { return from_; }
-	Vertex *to() const { return to_; }
-	void updatePos();
+ public:
+    enum{ Type = UserType + 29 };
+    Edge(Vertex *from, Vertex *to, QGraphicsItem *parent = 0);
+    int type() const override { return Type; }
+    Vertex *from() const { return from_; }
+    Vertex *to() const { return to_; }
+    void updatePos();
 
-protected:
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
+ protected:
+    void paint(QPainter *painter, 
+        const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
 
-private:
-	int number_; //номер ребра
-	int weight_{ 1 }; //вес ребра
-	Vertex *from_{ nullptr }; //откуда идёт ребро
-	Vertex *to_{ nullptr }; //куда идёт ребро
+ private:
+    int number_;  // Номер ребра
+    int weight_{ 1 };  // Вес ребра
+    Vertex *from_{ nullptr };  // Откуда идёт ребро
+    Vertex *to_{ nullptr };  // Куда идёт ребро
 };
 
-#endif //EDGE_H
+#endif  // EDGE_H

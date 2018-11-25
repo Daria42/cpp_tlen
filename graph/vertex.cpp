@@ -7,43 +7,42 @@
 int Vertex::counter_ = 0;
 
 Vertex::Vertex(QGraphicsItem *parent) : QGraphicsEllipseItem(parent), number_(getNumber()) {
-	setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
 void Vertex::removeEdge(Edge *edge) {
-	int index = edges_.indexOf(edge);
-	if (index != -1) edges_.removeAt(index);
+    int index = edges_.indexOf(edge);
+    if (index != -1) edges_.removeAt(index);
 }
 
 void Vertex::removeEdges() {
-	for (auto edge : edges_) {
-		edge->from()->removeEdge(edge);
-		//edge->to()->removeEdge(edge);
-		scene()->removeItem(edge);
-		delete edge;
-	}
+    for (auto edge : edges_) {
+        edge->from()->removeEdge(edge);
+        //edge->to()->removeEdge(edge);
+        scene()->removeItem(edge);
+        delete edge;
+    }
 }
 
 void Vertex::addEdge(Edge *edge) {
-	edges_.append(edge);
+    edges_.append(edge);
 }
 
 void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
-	painter->setPen(pen());
-	painter->setBrush(brush());
-	painter->drawEllipse(rect());
-	qreal tx = pos().x();
-	qreal ty = pos().y();
-	QString number = QString::number(number_);
-	QFont font;
-	font.setPointSize(rect().width() / 3);
-	painter->setFont(font);
-	painter->drawText(rect(), Qt::AlignCenter, number);
+    painter->setPen(pen());
+    painter->setBrush(brush());
+    painter->drawEllipse(rect());
+    qreal tx = pos().x();
+    qreal ty = pos().y();
+    QString number = QString::number(number_);
+    QFont font;
+    font.setPointSize(rect().width() / 3);
+    painter->setFont(font);
+    painter->drawText(rect(), Qt::AlignCenter, number);
 }
 
 QVariant Vertex::itemChange(GraphicsItemChange change, const QVariant &value) {
-	if (change == QGraphicsEllipseItem::ItemPositionChange)
-		for (auto edge : edges_)
-			edge->updatePos();
-	return value;
+    if (change == QGraphicsEllipseItem::ItemPositionChange)
+        for (auto edge : edges_) edge->updatePos();
+    return value;
 }

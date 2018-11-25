@@ -4,39 +4,45 @@
 #include "edge.h"
 
 #include <Qwidget>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QFile>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui_(new Ui::MainWindow) {
     ui_->setupUi(this);
-	scene_ = new GraphScene(this);
-	ui_->graphicsView->setScene(scene_);
-	ui_->graphicsView->setSceneRect(scene_->sceneRect());
-	connect(ui_->pushButtonMove, SIGNAL(released()), this, SLOT(moveClicked()));
-	connect(ui_->pushButtonAddVertex, SIGNAL(released()), this, SLOT(addVertexClicked()));
-	connect(ui_->pushButtonAddEdge, SIGNAL(released()), this, SLOT(addEdgeClicked()));
-	connect(ui_->pushButtonClear, SIGNAL(released()), this, SLOT(clearClicked()));
+    scene_ = new GraphScene(this);
+    ui_->graphicsView->setScene(scene_);
+    connect(ui_->actionNew, &QAction::triggered, [this](bool checked) { newClicked(); });
+    connect(ui_->actionHelp, &QAction::triggered, [this](bool checked) { helpClicked(); });
+    connect(ui_->actionOpen, &QAction::triggered, [this](bool checked) { openClicked(); });
+    connect(ui_->actionSave, &QAction::triggered, [this](bool checked) { saveClicked(); });
+    connect(ui_->actionExit, &QAction::triggered, [this](bool checked) { exitClicked(); });
 }
 
 MainWindow::~MainWindow() {
-	delete ui_;
+    delete ui_;
 }
 
-void MainWindow::moveClicked() {
-	scene_->setMode(scene_->MoveVertex);
+void MainWindow::newClicked() {
+    scene_->clear();
+    Vertex::resertCounter();
 }
 
-void MainWindow::addVertexClicked() {
-	scene_->setMode(scene_->InsertVertex);
+void MainWindow::openClicked() {
+    QString path("D:\\DARIA\\Desktop\\graph.dot");
+    QFile file(path);
 }
 
-void MainWindow::addEdgeClicked() {
-	scene_->setMode(scene_->InsertEdge);
+void MainWindow::saveClicked() {
+
 }
 
-void MainWindow::clearClicked() {
-	scene_->clear();
-	Vertex::resertCounter();
+void MainWindow::helpClicked() {
+    QMessageBox::information(this, "Hotkeys",
+        QString("Create new vertex:	Ctrl + mouse click\nCreate edge:		Shift + mouse click\nDelete element:	right button mouse click\nReplace everything:	R"));
 }
 
-void MainWindow::renameAllClicked() {
-
+void MainWindow::exitClicked() {
+    exit(0);
 }

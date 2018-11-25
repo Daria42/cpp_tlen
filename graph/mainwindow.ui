@@ -24,62 +24,10 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
+      <y>10</y>
       <width>1261</width>
-      <height>621</height>
+      <height>661</height>
      </rect>
-    </property>
-   </widget>
-    <widget class="QPushButton" name="pushButtonMove">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Move</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonAddVertex">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>10</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add vertex</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonAddEdge">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>10</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add edge</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonClear">
-    <property name="geometry">
-     <rect>
-      <x>1190</x>
-      <y>10</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Clear</string>
     </property>
    </widget>
   </widget>
@@ -92,8 +40,50 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
