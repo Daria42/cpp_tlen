@@ -124,21 +124,27 @@ bool checkLastString(QString &str) {
 bool addEdge(std::map < QString, QList <QString> > &g, QString &str) {
     QString from = "";
     int i = 0;
-    while (i < str.size() && str[i] != '-') {
+    while (i < str.size() && str[i] != '-' && str[i] != ';') {
         from.push_back(str[i]);
         i++;
     }
-    if (i >= str.size() - 1) return false;
-    if (str[i + 1] != '-') return false;
-    i += 2;
-    QString to = "";
-    while (i < str.size() && str[i] != ';' && str[i] != '[') {
-        to.push_back(str[i]);
-        i++;
+    if (i == str.size() - 1 && str[i] == ';') {
+        g[from];
+        return true;
     }
-    if (i == str.size()) return false;
-    g[from].push_back(to);
-    return true;
+    else if (i < str.size() - 1 && str[i] == '-' && str[i + 1] == '-') {
+        i += 2;
+        QString to = "";
+        while (i < str.size() && str[i] != ';' && str[i] != '[') {
+            to.push_back(str[i]);
+            i++;
+        }
+        if (i == str.size()) return false;
+        g[from].push_back(to);
+        g[to];
+        return true;
+    }
+    else return false;
 }
 
 bool GraphScene::openGraph(QFile &file) {
@@ -151,32 +157,73 @@ bool GraphScene::openGraph(QFile &file) {
         list.push_back(line);
     }
     file.close();
-    if (list.size() < 2) return false;
-    if (!checkFirstString(list[0])) return false;
-    if (!checkLastString(list.back())) return false;
-    std::map < QString, QList <QString> > g;
-    for (int i = 1; i < list.size() - 1; i++)
-        if (!addEdge(g, list[i])) return false;
-    std::map <QString, Vertex *> v;
-    clear();
-    for (auto it : g) {
-        v[it.first] = new Vertex;
-        v[it.first]->setRect(vertexRect_);
-        v[it.first]->setBrush(vertexBrush_);
-        v[it.first]->setPen(vertexPen_);
-        v[it.first]->setPos(0, 0);
-        addItem(v[it.first]);
-        emit(vertexInserted(v[it.first]));
-    }
-    for (auto it : g) {
-        for (auto to : it.second) {
-            Edge *edge = new Edge(v[it.first], v[to]);
-            edge->setPen(edgePen_);
-            v[it.first]->addEdge(edge);
-            v[to]->addEdge(edge);
-            addItem(edge);
+    if (list.size() >= 2 && checkFirstString(list[0]) && checkLastString(list.back())) {
+        std::map < QString, QList <QString> > g;
+        for (int i = 1; i < list.size() - 1; i++)
+            if (!addEdge(g, list[i])) return false;
+        std::map <QString, Vertex *> v;
+        clear();
+        Vertex::resertCounter();
+        for (auto it : g) {
+            v[it.first] = new Vertex;
+            v[it.first]->setRect(vertexRect_);
+            v[it.first]->setBrush(vertexBrush_);
+            v[it.first]->setPen(vertexPen_);
+            v[it.first]->setPos(0, 0);
+            addItem(v[it.first]);
+            emit(vertexInserted(v[it.first]));
         }
+        for (auto it : g) {
+            for (auto to : it.second) {
+                Edge *edge = new Edge(v[it.first], v[to]);
+                edge->setPen(edgePen_);
+                v[it.first]->addEdge(edge);
+                v[to]->addEdge(edge);
+                addItem(edge);
+            }
+        }
+        replaceAll();
+        return true;
     }
-    replaceAll();
-    return true;
+    return false;
 }  // Парсинг и вывод на экран графа из файла
+
+void GraphScene::saveGraph(QString &path) {
+    QFile file(path);
+    if (file.open(QFile::WriteOnly)) {
+        QString spaces("    ");
+        QString output("graph MyGraph {");
+        output.push_back('\n');
+        QList<QGraphicsItem *> elements = items();
+        for (int i = 0; i < elements.size(); i++) {
+            if (elements[i]->type() == Vertex::Type) {
+                Vertex *vertex = qgraphicsitem_cast<Vertex *>(elements[i]);
+                if (vertex->edgesCount() != 0) continue;
+                output.push_back(spaces);
+                if (vertex->name() == "")
+                    output.push_back("a" + QString::number(vertex->number()));
+                else output.push_back(vertex->name());
+                output.push_back(";\n");
+            }
+        }
+        for (int i = 0; i < elements.size(); i++) {
+            if (elements[i]->type() == Edge::Type) {
+                Edge *edge = qgraphicsitem_cast<Edge *>(elements[i]);
+                output.push_back(spaces);
+                Vertex *from = edge->from();
+                Vertex *to = edge->to();
+                if (from->name() == "")
+                    output.push_back("a" + QString::number(from->number()));
+                else output.push_back(from->name());
+                output.push_back(" -- ");
+                if (to->name() == "")
+                    output.push_back("a" + QString::number(to->number()));
+                else output.push_back(to->name());
+                output.push_back(";\n");
+            }
+        }
+        output.push_back("}");
+        file.write(output.toLocal8Bit());
+        file.close();
+    }
+}  // Сохранение графа в файл

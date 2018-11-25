@@ -13,7 +13,9 @@ class Vertex : public QGraphicsEllipseItem {
     Vertex(QGraphicsItem *parent = 0);
     int type() const override { return Type; }
     int number() { return number_; }
-    void setName(QString &str) { name_ = str; }
+    QString name() { return name_; }
+    int edgesCount() { return edges_.size(); }
+    void setName(QString str) { name_ = str; }
     void removeEdge(Edge *edge);
     void removeEdges();
     void addEdge(Edge *edge);

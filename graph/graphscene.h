@@ -27,6 +27,7 @@ class GraphScene : public QGraphicsScene {
     void setMode(Mode mode) { mode_ = mode; }
     void replaceAll();
     bool openGraph(QFile &file);
+    void saveGraph(QString &path);
 
  signals:
     void vertexInserted(Vertex *vertex);
