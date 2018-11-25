@@ -18,7 +18,7 @@ void Vertex::removeEdge(Edge *edge) {
 void Vertex::removeEdges() {
     for (auto edge : edges_) {
         edge->from()->removeEdge(edge);
-        //edge->to()->removeEdge(edge);
+        edge->to()->removeEdge(edge);
         scene()->removeItem(edge);
         delete edge;
     }
@@ -34,11 +34,16 @@ void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
     painter->drawEllipse(rect());
     qreal tx = pos().x();
     qreal ty = pos().y();
-    QString number = QString::number(number_);
     QFont font;
     font.setPointSize(rect().width() / 3);
     painter->setFont(font);
-    painter->drawText(rect(), Qt::AlignCenter, number);
+    if (name_ == "") {
+        QString number = QString::number(number_);
+        painter->drawText(rect(), Qt::AlignCenter, number);
+    }
+    else {
+        painter->drawText(rect(), Qt::AlignCenter, name_);
+    }
 }
 
 QVariant Vertex::itemChange(GraphicsItemChange change, const QVariant &value) {

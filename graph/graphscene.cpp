@@ -3,6 +3,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QKeyEvent>
 #include <QtMath>
+#include <QTextStream>
+#include <map>
 
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     if (mouseEvent->button() == Qt::RightButton) {
@@ -66,7 +68,7 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) {
             Edge *edge = new Edge(first, second);
             edge->setPen(edgePen_);
             first->addEdge(edge);
-            //second->addEdge(edge);
+            second->addEdge(edge);
             addItem(edge);
             edge->updatePos();
         }  // Создание нового ребра, если пользователем выполнены необходимые действия
@@ -110,3 +112,71 @@ void GraphScene::replaceAll() {
         vector = rotate(vector, angle);
     }
 }  // Расположение вершин на сцене
+
+bool checkFirstString(QString &str) {
+    return (str.back() == '{');
+}
+
+bool checkLastString(QString &str) {
+    return (str == "}");
+}
+
+bool addEdge(std::map < QString, QList <QString> > &g, QString &str) {
+    QString from = "";
+    int i = 0;
+    while (i < str.size() && str[i] != '-') {
+        from.push_back(str[i]);
+        i++;
+    }
+    if (i >= str.size() - 1) return false;
+    if (str[i + 1] != '-') return false;
+    i += 2;
+    QString to = "";
+    while (i < str.size() && str[i] != ';' && str[i] != '[') {
+        to.push_back(str[i]);
+        i++;
+    }
+    if (i == str.size()) return false;
+    g[from].push_back(to);
+    return true;
+}
+
+bool GraphScene::openGraph(QFile &file) {
+    QList<QString> list;
+    if (!file.open(QIODevice::ReadOnly)) return false;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        line.replace(" ", "");
+        list.push_back(line);
+    }
+    file.close();
+    if (list.size() < 2) return false;
+    if (!checkFirstString(list[0])) return false;
+    if (!checkLastString(list.back())) return false;
+    std::map < QString, QList <QString> > g;
+    for (int i = 1; i < list.size() - 1; i++)
+        if (!addEdge(g, list[i])) return false;
+    std::map <QString, Vertex *> v;
+    clear();
+    for (auto it : g) {
+        v[it.first] = new Vertex;
+        v[it.first]->setRect(vertexRect_);
+        v[it.first]->setBrush(vertexBrush_);
+        v[it.first]->setPen(vertexPen_);
+        v[it.first]->setPos(0, 0);
+        addItem(v[it.first]);
+        emit(vertexInserted(v[it.first]));
+    }
+    for (auto it : g) {
+        for (auto to : it.second) {
+            Edge *edge = new Edge(v[it.first], v[to]);
+            edge->setPen(edgePen_);
+            v[it.first]->addEdge(edge);
+            v[to]->addEdge(edge);
+            addItem(edge);
+        }
+    }
+    replaceAll();
+    return true;
+}  // Парсинг и вывод на экран графа из файла

@@ -30,9 +30,11 @@ void MainWindow::newClicked() {
 }
 
 void MainWindow::openClicked() {
-    QString path("D:\\DARIA\\Desktop\\graph.dot");
+    QString path = QFileDialog::getOpenFileName(this, tr("Open File"));
     QFile file(path);
-}
+    if (!scene_->openGraph(file))
+        QMessageBox::warning(this, "Warning!", "Invalid file or graph description.");
+}  // Красивое диалоговое окно для выбора файла
 
 void MainWindow::saveClicked() {
 

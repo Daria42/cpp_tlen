@@ -12,6 +12,7 @@ class Edge : public QGraphicsLineItem {
     int type() const override { return Type; }
     Vertex *from() const { return from_; }
     Vertex *to() const { return to_; }
+    void setWeight(const int w) { weight_ = w; }
     void updatePos();
 
  protected:

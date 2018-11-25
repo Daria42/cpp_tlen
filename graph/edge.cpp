@@ -15,6 +15,7 @@ void Edge::updatePos() {
 }
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
+    if (from_->pos() == to_->pos()) return;
     QPointF delta(qreal(from_->x() - to_->x()), qreal(from_->y() - to_->y()));
     qreal deltaLen = qSqrt(delta.x() * delta.x() + delta.y() * delta.y());
     delta.setX(15 * delta.x() / deltaLen);

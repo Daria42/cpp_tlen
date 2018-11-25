@@ -9,6 +9,7 @@ class QGraphicsEllipseItem;
 class QGraphicsLineItem;
 class QColor;
 class QRectF;
+class QFile;
 
 class GraphScene : public QGraphicsScene {
     Q_OBJECT
@@ -25,6 +26,7 @@ class GraphScene : public QGraphicsScene {
         { vertexPen_.setWidth(width); edgePen_.setWidth(width); }
     void setMode(Mode mode) { mode_ = mode; }
     void replaceAll();
+    bool openGraph(QFile &file);
 
  signals:
     void vertexInserted(Vertex *vertex);

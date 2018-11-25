@@ -13,6 +13,7 @@ class Vertex : public QGraphicsEllipseItem {
     Vertex(QGraphicsItem *parent = 0);
     int type() const override { return Type; }
     int number() { return number_; }
+    void setName(QString &str) { name_ = str; }
     void removeEdge(Edge *edge);
     void removeEdges();
     void addEdge(Edge *edge);
@@ -25,6 +26,7 @@ class Vertex : public QGraphicsEllipseItem {
 
  private:
     static int counter_;
+    QString name_{ "" };
     int number_{ 0 };  // Номер вершины
     QList<Edge *> edges_;  // Список смежности
 };
