@@ -1,4 +1,4 @@
-#include "queueonarray.h"
+#include <queueonarray\queueonarray.h>
 #include <iostream>
 
 using namespace std;

@@ -1,5 +1,4 @@
-#include "dynamicarray.h"
-#include "dynamicarray.cpp"
+#include <dynamicarray/dynamicarray.h>
 #include <iostream>
 #include <sstream>
 

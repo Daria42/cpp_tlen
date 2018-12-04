@@ -1,4 +1,4 @@
-#include "stackonarray.h"
+#include <stackonlist\stackonlist.h>
 #include <iostream>
 #include <sstream>
 
@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     setlocale(LC_ALL, "RUS");
 
-    StackOnArray a;
+    StackOnList a;
     cout << "Пустой список a" << endl;
     cout << "a.empty() возвращает: " << a.empty() << endl;
     a.push(1);
@@ -16,15 +16,15 @@ int main() {
     cout << "a.top() возвращает: " << a.top() << endl;
     a.pop();
     cout << "Удаление элемента из a (a.pop())" << endl;
-    try {
-        a.pop();
-    } catch (runtime_error ex) {
+    try { a.pop(); }
+    catch (runtime_error ex) {
         cout << "При попытке удалить элемент из пустого стэка выбрасывается исключение" << endl;
     }
-    cout << "Добавление десяти элементов в a" << endl;
-    for (int i = 1; i <= 10; i++) a.push(i);
-    StackOnArray b = a;
-    b.push(11);
+    cout << "Добавление двух элементов в a" << endl;
+    a.push(1);
+    a.push(2);
+    StackOnList b = a;
+    b.push(3);
     cout << "Создание копии стэка a и добавление в него ещё одного элемента" << endl;
     cout << "a.top() возвращает: " << a.top() << endl;
     cout << "b.top() возвращает: " << b.top() << endl;
