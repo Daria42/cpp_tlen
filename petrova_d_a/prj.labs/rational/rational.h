@@ -1,38 +1,37 @@
-#ifndef rational_h
-#define rational_h
-
+#ifndef PETROVA_D_A_PRJ_LABS_RATIONAL_RATIONAL_H_
+#define PETROVA_D_A_PRJ_LABS_RATIONAL_RATIONAL_H_
 #include <iosfwd>
 
 class Rational {
-public:
-	Rational() {}
-	explicit Rational(const int numerator);
-	Rational(const int numerator, const int denominator);
-	bool operator==(const Rational& rhs) const { return (num * rhs.den == rhs.den * num); }
-	bool operator!=(const Rational& rhs) const { return !operator==(rhs); }
-	bool operator>(const Rational& rhs) const { return (num * rhs.den - rhs.den * num > 0); }
-	bool operator<(const Rational& rhs) const { return (num * rhs.den - rhs.den * num < 0); }
-	bool operator>=(const Rational& rhs) const { return (num * rhs.den - rhs.den * num >= 0); }
-	bool operator<=(const Rational& rhs) const { return (num * rhs.den - rhs.den * num <= 0); }
-	Rational& operator=(const Rational& rhs) = default;
-	Rational& operator+=(const Rational& rhs);
-	Rational& operator+=(const int rhs) { return operator+=(Rational(rhs)); }
-	Rational& operator-=(const Rational& rhs);
-	Rational& operator-=(const int rhs) { return operator-=(Rational(rhs)); }
-	Rational& operator*=(const Rational& rhs);
-	Rational& operator*=(const int rhs) { return operator*=(Rational(rhs)); }
-	Rational& operator/=(const Rational& rhs);
-	Rational& operator/=(const int rhs) { return operator/=(Rational(rhs)); }
+ public:
+    Rational() {}
+    explicit Rational(const int numerator);
+    Rational(const int numerator, const int denominator);
+    bool operator==(const Rational& rhs) const { return (num * rhs.den == rhs.den * num); }
+    bool operator!=(const Rational& rhs) const { return !operator==(rhs); }
+    bool operator>(const Rational& rhs) const { return (num * rhs.den - rhs.den * num > 0); }
+    bool operator<(const Rational& rhs) const { return (num * rhs.den - rhs.den * num < 0); }
+    bool operator>=(const Rational& rhs) const { return (num * rhs.den - rhs.den * num >= 0); }
+    bool operator<=(const Rational& rhs) const { return (num * rhs.den - rhs.den * num <= 0); }
+    Rational& operator=(const Rational& rhs) = default;
+    Rational& operator+=(const Rational& rhs);
+    Rational& operator+=(const int rhs) { return operator+=(Rational(rhs)); }
+    Rational& operator-=(const Rational& rhs);
+    Rational& operator-=(const int rhs) { return operator-=(Rational(rhs)); }
+    Rational& operator*=(const Rational& rhs);
+    Rational& operator*=(const int rhs) { return operator*=(Rational(rhs)); }
+    Rational& operator/=(const Rational& rhs);
+    Rational& operator/=(const int rhs) { return operator/=(Rational(rhs)); }
 
-	void normal();
+    void normal();
 
-	std::ostream& writeTo(std::ostream& ostrm);
-	std::istream& readFrom(std::istream& istrm);
+    std::ostream& writeTo(std::ostream& ostrm);
+    std::istream& readFrom(std::istream& istrm);
 
-	static const char seperator{ '/' };
+    static const char seperator{ '/' };
 
-	int num{ 0 };
-	int den{ 1 };
+    int num{ 0 };
+    int den{ 1 };
 };
 
 Rational operator+(const Rational& lhs, const Rational& rhs);
@@ -50,7 +49,11 @@ Rational operator-(const int& lhs, const Rational& rhs);
 Rational operator*(const int& lhs, const Rational& rhs);
 Rational operator/(const int& lhs, const Rational& rhs);
 
-inline std::ostream& operator<<(std::ostream& ostrm, Rational& rhs) { return rhs.writeTo(ostrm); }
-inline std::istream& operator>>(std::istream& istrm, Rational& rhs) { return rhs.readFrom(istrm); }
+inline std::ostream& operator<<(std::ostream& ostrm, Rational& rhs) {
+    return rhs.writeTo(ostrm);
+}
+inline std::istream& operator>>(std::istream& istrm, Rational& rhs) {
+    return rhs.readFrom(istrm);
+}
 
-#endif
+#endif  // PETROVA_D_A_PRJ_LABS_RATIONAL_RATIONAL_H_

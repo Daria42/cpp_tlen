@@ -1,2 +1,2 @@
-add_executable(queueonlist queueonlist.cpp queueonlist.h queueonlist_test.cpp)
+add_library(queueonlist queueonlist.cpp queueonlist.h)
 set_property(TARGET queueonlist PROPERTY CXX_STANDARD 14)

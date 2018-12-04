@@ -1,2 +1,2 @@
-add_executable(queueonarray queueonarray.cpp queueonarray.h queueonarray_test.cpp)
+add_library(queueonarray queueonarray.cpp queueonarray.h)
 set_property(TARGET queueonarray PROPERTY CXX_STANDARD 14)

@@ -4,34 +4,33 @@
 #include <QGraphicsPixmapItem>
 #include <QList>
 
-//class QPixmap;
 class QGraphicsItem;
-class QGraphicsScene;
-class QGraphicsSceneMouseEvent;
-class QMenu;
-//class QGraphicsSceneContextMenuEvent;
-//class QPainter;
-//class QStyleOptionGraphicsItem;
-//class QWidget;
 class Edge;
 
 class Vertex : public QGraphicsEllipseItem {
-public:
-	enum { Type = UserType + 41 };
-	Vertex(QMenu *contextMenu, QGraphicsItem *parent = 0);
-	int type() const override { return Type; }
-	void removeEdge(Edge *edge);
-	void removeEdges();
-	void addEdge(Edge *edge);
-	//QGraphicsEllipseItem ellipse() const { return ellipseItem; }
-protected:
-	void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
-	//QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
-private:
-	//Сделать цвет и размер, добавить установку размера
-	//QGraphicsEllipseItem ellipseItem;
-	QMenu *contextMenu;
-	QList<Edge *> edges;
+ public:
+    enum { Type = UserType + 41 };
+    Vertex(QGraphicsItem *parent = 0);
+    int type() const override { return Type; }
+    int number() { return number_; }
+    QString name() { return name_; }
+    int edgesCount() { return edges_.size(); }
+    void setName(QString str) { name_ = str; }
+    void removeEdge(Edge *edge);
+    void removeEdges();
+    void addEdge(Edge *edge);
+    static int getNumber() { return counter_++; }
+    static void resertCounter() { counter_ = 0; }
+
+ protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+
+ private:
+    static int counter_;
+    QString name_{ "" };
+    int number_{ 0 };  // Номер вершины
+    QList<Edge *> edges_;  // Список смежности
 };
 
-#endif //VERTEX_H
+#endif  // VERTEX_H

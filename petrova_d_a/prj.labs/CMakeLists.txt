@@ -6,3 +6,5 @@ add_subdirectory(stackonlist)
 add_subdirectory(stackonarray)
 add_subdirectory(queueonlist)
 add_subdirectory(queueonarray)
+
+add_subdirectory(tests)
