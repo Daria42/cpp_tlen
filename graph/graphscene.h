@@ -16,18 +16,27 @@ class GraphScene : public QGraphicsScene {
 
  public:
     enum Mode { InsertVertex, InsertEdge, MoveVertex }; // Режимы работы сцены
-    explicit GraphScene(QObject *parent = 0) : QGraphicsScene(parent) { }
-    void setVertexBrushColor(const QColor &color) { vertexPen_.setColor(color); }
-    void setVertexPenColor(const QColor &color) { vertexBrush_.setColor(color); }
-    void setEdgeColor(const QColor &color) { edgePen_.setColor(color); }
-    void setVertexSize(const qreal &size)
-        { vertexRect_.setRect(-size / 2, -size / 2, size, size); }
-    void setLineWidth(const int &width)
-        { vertexPen_.setWidth(width); edgePen_.setWidth(width); }
+    explicit GraphScene(QObject *parent = 0)
+        : QGraphicsScene(parent) { }
+    void setVertexBrushColor(const QColor &color) {
+        vertexPen_.setColor(color);
+    }
+    void setVertexPenColor(const QColor &color) {
+        vertexBrush_.setColor(color);
+    }
+    void setEdgeColor(const QColor &color) {
+        edgePen_.setColor(color);
+    }
+    void setVertexSize(const qreal &size) {
+        vertexRect_.setRect(-size / 2, -size / 2, size, size);
+    }
+    void setLineWidth(const int &width) {
+        vertexPen_.setWidth(width); edgePen_.setWidth(width);
+    }
     void setMode(Mode mode) { mode_ = mode; }
-    void replaceAll();
-    bool openGraph(QFile &file);
-    void saveGraph(QString &path);
+    void replaceAll();  // Располагает вершины на экране по кругу
+    bool openGraph(QFile &file);  // Пытается открыть файл dot
+    void saveGraph(QString &path);  // Сохраняет граф в файл
 
  signals:
     void vertexInserted(Vertex *vertex);

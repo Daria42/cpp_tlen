@@ -16,19 +16,22 @@ class Vertex : public QGraphicsEllipseItem {
     QString name() { return name_; }
     int edgesCount() { return edges_.size(); }
     void setName(QString str) { name_ = str; }
-    void removeEdge(Edge *edge);
-    void removeEdges();
-    void addEdge(Edge *edge);
+    void removeEdge(Edge *edge);  // Удаляет ребро из списка смежности
+    void removeEdges();  // Удаляет все рёбра вершины
+    void addEdge(Edge *edge);  // Добавляет ребро в список смежности
     static int getNumber() { return counter_++; }
-    static void resertCounter() { counter_ = 0; }
+    static void resertCounter() { counter_ = 0; }  // Сбрасывает счётчик
 
  protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    void paint(QPainter *painter,
+        const QStyleOptionGraphicsItem *option,
+        QWidget *widget = 0) override;
+    QVariant itemChange(GraphicsItemChange change,
+        const QVariant &value) override;
 
  private:
-    static int counter_;
-    QString name_{ "" };
+    static int counter_;  // счётчик вершин
+    QString name_{ "" };  // Имя вершины (если имени нет, отображается номер)
     int number_{ 0 };  // Номер вершины
     QList<Edge *> edges_;  // Список смежности
 };

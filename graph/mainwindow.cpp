@@ -32,16 +32,19 @@ void MainWindow::newClicked() {
 void MainWindow::openClicked() {
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"));
     QFile file(path);
-    if (!scene_->openGraph(file))
-        QMessageBox::warning(this, "Warning!", "Invalid file or graph description.");
-    else
+    if (!scene_->openGraph(file)) {
+        QMessageBox::warning(this,
+            "Warning!", "Invalid file or graph description.");
+    } else {
         file.close();
+    }
 }  // Красивое диалоговое окно для выбора файла
 
 void MainWindow::saveClicked() {
     QString path = QFileDialog::getSaveFileName(this, tr("Save File"));
-    if (!path.isEmpty())
+    if (!path.isEmpty()) {
         scene_->saveGraph(path);
+    }
 }  // Диалоговое окно для сохранения в файл
 
 void MainWindow::helpClicked() {

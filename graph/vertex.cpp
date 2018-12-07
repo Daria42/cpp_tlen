@@ -6,13 +6,16 @@
 
 int Vertex::counter_ = 0;
 
-Vertex::Vertex(QGraphicsItem *parent) : QGraphicsEllipseItem(parent), number_(getNumber()) {
+Vertex::Vertex(QGraphicsItem *parent)
+        : QGraphicsEllipseItem(parent), number_(getNumber()) {
     setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
 void Vertex::removeEdge(Edge *edge) {
     int index = edges_.indexOf(edge);
-    if (index != -1) edges_.removeAt(index);
+    if (index != -1) {
+        edges_.removeAt(index);
+    }
 }
 
 void Vertex::removeEdges() {
@@ -28,7 +31,8 @@ void Vertex::addEdge(Edge *edge) {
     edges_.append(edge);
 }
 
-void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
+void Vertex::paint(QPainter *painter,
+        const QStyleOptionGraphicsItem *, QWidget *) {
     painter->setPen(pen());
     painter->setBrush(brush());
     painter->drawEllipse(rect());
@@ -46,8 +50,12 @@ void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
     }
 }
 
-QVariant Vertex::itemChange(GraphicsItemChange change, const QVariant &value) {
-    if (change == QGraphicsEllipseItem::ItemPositionChange)
-        for (auto edge : edges_) edge->updatePos();
+QVariant Vertex::itemChange(GraphicsItemChange change,
+        const QVariant &value) {
+    if (change == QGraphicsEllipseItem::ItemPositionChange) {
+        for (auto edge : edges_) {
+            edge->updatePos();
+        }
+    }
     return value;
 }
