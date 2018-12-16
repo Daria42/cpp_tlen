@@ -87,12 +87,7 @@ void DynamicArray<T>::resize(const ptrdiff_t size) {
         size_ = size;
     }
     else {
-        if (capacity_ == 0) {
-            capacity_ = 1;
-        }
-        else {
-            capacity_ = size * 2;
-        }
+        capacity_ = size * 2;
         T *data = new T[capacity_];
         for (int i = 0; i < size_; i++) {
             data[i] = data_[i];
