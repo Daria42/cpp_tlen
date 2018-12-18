@@ -12,7 +12,7 @@ class DynamicArray {
     ~DynamicArray() { delete[] data_; data_ = nullptr; }
     ptrdiff_t size() const { return size_; }
     T& operator[](const ptrdiff_t index);
-    const T& operator[](const ptrdiff_t index) const;
+    T& operator[](const ptrdiff_t index) const;
     void resize(const ptrdiff_t size);
     void resize(const ptrdiff_t size, const T &val);
     const DynamicArray &operator=(const DynamicArray<T> &arr);
@@ -71,7 +71,7 @@ T& DynamicArray<T>::operator[](const ptrdiff_t index) {
 }
 
 template <typename T>
-const T& DynamicArray<T>::operator[](const ptrdiff_t index) const {
+T& DynamicArray<T>::operator[](const ptrdiff_t index) const {
     if (index >= (*this).size() || index < 0) {
         throw out_of_range("Index is out of range!");
     }

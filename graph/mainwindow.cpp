@@ -38,14 +38,14 @@ void MainWindow::openClicked() {
     } else {
         file.close();
     }
-}  // Красивое диалоговое окно для выбора файла
+}
 
 void MainWindow::saveClicked() {
     QString path = QFileDialog::getSaveFileName(this, tr("Save File"));
     if (!path.isEmpty()) {
         scene_->saveGraph(path);
     }
-}  // Диалоговое окно для сохранения в файл
+}
 
 void MainWindow::helpClicked() {
     QMessageBox::information(this, "Hotkeys",

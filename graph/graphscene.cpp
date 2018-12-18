@@ -7,7 +7,7 @@
 #include <map>
 
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
-    if (mouseEvent->button() == Qt::RightButton) {  // Удаление элементов
+    if (mouseEvent->button() == Qt::RightButton) {
         QList<QGraphicsItem *> elements = items(mouseEvent->scenePos());
         if (elements.count() != 0 && elements.first()->type() == Vertex::Type) {
             Vertex *vertex = qgraphicsitem_cast<Vertex *>(elements.first());
@@ -21,7 +21,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
             removeItem(edge);
             delete edge;
         }
-    } else if (mouseEvent->button() == Qt::LeftButton) {  // Создание вершины
+    } else if (mouseEvent->button() == Qt::LeftButton) {
         if (mode_ == InsertVertex) {
             Vertex *vertex = new Vertex();
             vertex->setRect(vertexRect_);
@@ -30,7 +30,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
             vertex->setPos(mouseEvent->scenePos());
             addItem(vertex);
             emit(vertexInserted(vertex));
-        } else if (mode_ == InsertEdge) {  // Начало создания ребра
+        } else if (mode_ == InsertEdge) {
             line_ = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                 mouseEvent->scenePos()));
             line_->setPen(edgePen_);
@@ -47,15 +47,15 @@ void GraphScene::mouseMoveEvent(QGraphicsSceneMouseEvent * mouseEvent) {
             QGraphicsScene::mouseMoveEvent(mouseEvent);
         } else if (mode_ == InsertEdge && line_ != 0) {
             QLineF movedLine(line_->line().p1(),
-                mouseEvent->scenePos()); // Временное изображение ребра
+                mouseEvent->scenePos());
             line_->setLine(movedLine);
-        }  // Если начато рисование нового ребра, отображение на экране соответствующей линии
+        }
     }
 }
 
 void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     if (mouseEvent->button() != Qt::RightButton) {
-        if (mode_ == InsertEdge && line_ != 0) {  // Добавление ребра
+        if (mode_ == InsertEdge && line_ != 0) {
             QList<QGraphicsItem *> from = items(line_->line().p1());
             if (from.count() && from.first() == line_) from.removeFirst();
             QList<QGraphicsItem *> to = items(line_->line().p2());
@@ -94,7 +94,7 @@ void GraphScene::keyReleaseEvent(QKeyEvent *keyEvent) {
 QPoint rotate(QPoint &a, qreal &u) {
     return QPoint(a.x() * qCos(u) - a.y() * qSin(u),
         a.x() * qSin(u) + a.y() * qCos(u));
-}  // Поворачивает вектор, заданный точкой, на угол
+}
 
 void GraphScene::replaceAll() {
     QList<QGraphicsItem *> it = items();
@@ -119,11 +119,11 @@ void GraphScene::replaceAll() {
 
 bool checkFirstString(QString &str) {
     return (str.back() == '{');
-}  // Проверяет, правильно ли задана первая строка файла
+}
 
 bool checkLastString(QString &str) {
     return (str == "}");
-}  // Проверяет, правильно ли задана последняя строка файла
+}
 
 bool addEdge(std::map < QString, QList <QString> > &g, QString &str) {
     QString from = "";
@@ -149,7 +149,7 @@ bool addEdge(std::map < QString, QList <QString> > &g, QString &str) {
     } else {
         return false;
     }
-}  // Пытается добавить рёбра во временный список смежности g, возвращает false, если это не удаётся
+}
 
 bool GraphScene::openGraph(QFile &file) {
     QList<QString> list;
@@ -177,7 +177,6 @@ bool GraphScene::openGraph(QFile &file) {
             v[it.first]->setBrush(vertexBrush_);
             v[it.first]->setPen(vertexPen_);
             v[it.first]->setPos(0, 0);
-            //v[it.first]->setName(it.first);
             addItem(v[it.first]);
             emit(vertexInserted(v[it.first]));
         }

@@ -11,32 +11,77 @@ class QColor;
 class QRectF;
 class QFile;
 
+/*!
+\brief Класс, реализующий непосредственно работу с графом
+Позволяет пользователю удалять, добавлять, перемещать вершины и создавать рёбра
+*/
 class GraphScene : public QGraphicsScene {
     Q_OBJECT
 
  public:
-    enum Mode { InsertVertex, InsertEdge, MoveVertex }; // Режимы работы сцены
+     /// Набор возможных режимов сцены
+    enum Mode {
+        InsertVertex, /// Добавление вершины
+        InsertEdge, /// Добавление ребра
+        MoveVertex /// Перемещение вершины
+    };
     explicit GraphScene(QObject *parent = 0)
         : QGraphicsScene(parent) { }
+    /*!
+    Уставляет цвет вершины по умолчанию
+    \param &color Ссылка на нужный цвет
+    */
     void setVertexBrushColor(const QColor &color) {
         vertexPen_.setColor(color);
     }
+    /*!
+    Уставляет цвет обводки вершнины по умолчанию
+    \param &color Ссылка на нужный цвет
+    */
     void setVertexPenColor(const QColor &color) {
         vertexBrush_.setColor(color);
     }
+    /*!
+    Уставляет цвет ребра по умолчанию
+    \param &color Ссылка на нужный цвет
+    */
     void setEdgeColor(const QColor &color) {
         edgePen_.setColor(color);
     }
+    /*!
+    Уставляет размер вершнины по умолчанию
+    \param &size Ссылка на значение размера
+    */
     void setVertexSize(const qreal &size) {
         vertexRect_.setRect(-size / 2, -size / 2, size, size);
     }
+    /*!
+    Уставляет толщину ребра по умолчанию
+    \param &width Ссылка на значение размера
+    */
     void setLineWidth(const int &width) {
         vertexPen_.setWidth(width); edgePen_.setWidth(width);
     }
+    /*!
+    Уставляет режим сцены
+    \param mode Необходимый режим
+    */
     void setMode(Mode mode) { mode_ = mode; }
-    void replaceAll();  // Располагает вершины на экране по кругу
-    bool openGraph(QFile &file);  // Пытается открыть файл dot
-    void saveGraph(QString &path);  // Сохраняет граф в файл
+    /*!
+    Располагает все вершины по кругу
+    */
+    void replaceAll();
+    /*!
+    Пытается открыть файл формата .dot
+    \param &file ссылка на файл (объект типа QFile)
+    \return true, если открытие файла и его парсинг завершается успешно, иначе - false
+    */
+    bool openGraph(QFile &file);
+    /*!
+    Пытается сохраняет граф в формате .dot
+    \param &path ссылка на строку, содержащую путь к файлу
+    */
+    void saveGraph(QString &path);
 
  signals:
     void vertexInserted(Vertex *vertex);
@@ -49,12 +94,12 @@ class GraphScene : public QGraphicsScene {
     void keyReleaseEvent(QKeyEvent *keyEvent);
 
  private:
-    Mode mode_{ MoveVertex };  // Режим сцены
-    QBrush vertexBrush_{ QBrush(Qt::white) };  // Цвет вершины
-    QPen vertexPen_{ QPen(Qt::black, 2) };  // Цвет границы эллипса вершины
-    QPen edgePen_{ QPen(Qt::black, 2) };  // Цвет рёбер
+    Mode mode_{ MoveVertex };
+    QBrush vertexBrush_{ QBrush(Qt::white) };
+    QPen vertexPen_{ QPen(Qt::black, 2) };
+    QPen edgePen_{ QPen(Qt::black, 2) };
     QRectF vertexRect_{ QRectF(-25, -25, 50, 50) };
-    QGraphicsLineItem *line_{ nullptr };  // Ребро в процессе создания
+    QGraphicsLineItem *line_{ nullptr };
 };
 
 #endif  // GRAPHSCENE_H

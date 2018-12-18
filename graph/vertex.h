@@ -7,20 +7,55 @@
 class QGraphicsItem;
 class Edge;
 
+/*!
+\brief Класс, реализующий вершину графа
+Позволяет хранить номер вершины, её имя и список связанных рёбер
+*/
 class Vertex : public QGraphicsEllipseItem {
  public:
     enum { Type = UserType + 41 };
     Vertex(QGraphicsItem *parent = 0);
     int type() const override { return Type; }
+    /*!
+    \return Номер вершины
+    */
     int number() { return number_; }
+    /*!
+    \return Имя вершины
+    */
     QString name() { return name_; }
+    /*!
+    \return Количество рёбер, связанных с вершиной
+    */
     int edgesCount() { return edges_.size(); }
+    /*!
+    Устанавливает имя вершины
+    \param str Необходимое имя
+    */
     void setName(QString str) { name_ = str; }
-    void removeEdge(Edge *edge);  // Удаляет ребро из списка смежности
-    void removeEdges();  // Удаляет все рёбра вершины
-    void addEdge(Edge *edge);  // Добавляет ребро в список смежности
+    /*!
+    Удаляет ребро, связанное с вершиной
+    \param *edge Указатель на вершину
+    */
+    void removeEdge(Edge *edge);
+    /*!
+    Удаляет все рёбра, связанные с вершиной
+    */
+    void removeEdges();
+    /*!
+    Добавляет ребро в список смежности вершины
+    \param *edge Указатель на вершину
+    */
+    void addEdge(Edge *edge);
+    /*!
+    Функция необходима для нумерации вершин
+    \return Номер следующей вершины
+    */
     static int getNumber() { return counter_++; }
-    static void resertCounter() { counter_ = 0; }  // Сбрасывает счётчик
+    /*!
+    Сбрасывает счётчик вершин
+    */
+    static void resertCounter() { counter_ = 0; }
 
  protected:
     void paint(QPainter *painter,
@@ -30,10 +65,10 @@ class Vertex : public QGraphicsEllipseItem {
         const QVariant &value) override;
 
  private:
-    static int counter_;  // счётчик вершин
-    QString name_{ "" };  // Имя вершины (если имени нет, отображается номер)
-    int number_{ 0 };  // Номер вершины
-    QList<Edge *> edges_;  // Список смежности
+    static int counter_;
+    QString name_{ "" };
+    int number_{ 0 };
+    QList<Edge *> edges_; 
 };
 
 #endif  // VERTEX_H
