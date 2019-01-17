@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 Matrix::Matrix(const ptrdiff_t row, const ptrdiff_t col) {
     if (row <= 0 || col <= 0) {
         throw invalid_argument("Not Matrix!");
