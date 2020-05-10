@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 Matrix::Matrix(const ptrdiff_t row, const ptrdiff_t col) {
     if (row <= 0 || col <= 0) {
         throw invalid_argument("Not Matrix!");
@@ -56,7 +57,7 @@ int& Matrix::get(const ptrdiff_t i, const ptrdiff_t j) {
     return data_[i][j];
 }
 
-int& Matrix::get(const ptrdiff_t i, const ptrdiff_t j) const {
+int Matrix::get(const ptrdiff_t i, const ptrdiff_t j) const {
     if (i >= row_ || i < 0 || j >= col_ || j < 0) {
         throw out_of_range("Out of range!");
     }
